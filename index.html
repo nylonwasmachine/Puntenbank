@@ -82,7 +82,7 @@
 
     <section id="accounts" class="tab-inhoud verborgen">
       <h1>Accounts</h1>
-      <p>Het wachtwoord voor ieder account is: <strong>noot</strong>.</p>
+      <p>Kies een account en vul het bijbehorende wachtwoord in.</p>
       <div id="account-lijst" class="account-lijst"></div>
     </section>
 
@@ -113,32 +113,64 @@
 
     let huidigAccount = "";
 
-    const accounts = ["Sam", "Lisa", "Alex", "Noah", "Emma", "Milan"];
-
-    const namen = [
-      "Sam", "Lisa", "Alex", "Noah", "Emma", "Milan", "Sophie", "Lucas",
-      "Julia", "Daan", "Mila", "Finn", "Nora", "Sem", "Lotte", "Levi",
-      "Eva", "Jesse", "Sara", "Timo", "Anna", "Bram", "Yara", "Liam",
-      "Esmee", "Mees", "Zoë", "Jayden", "Fleur", "Olivier", "Sanne",
-      "Thijs", "Evi", "Cas", "Isabel", "Luuk", "Tess", "Ruben", "Lynn",
-      "Gijs", "Amber", "Boris", "Femke", "Niek", "Elin", "Wout",
-      "Roos", "Mats", "Iris", "Dylan"
-    ];
-
-    const punten = [
-      ["20", "3"], ["18", "2"], ["15", "1"], ["Onbepaald", "0"],
-      ["12", "5"], ["10", "2"], ["Geen", "1"], ["9", "0"],
-      ["8", "2"], ["7", "0"], ["6", "1"], ["5", "2"],
-      ["5", "0"], ["4", "1"], ["4", "2"], ["3", "0"],
-      ["3", "1"], ["2", "0"], ["2", "1"], ["1", "0"],
-      ["1", "1"], ["0", "0"], ["0", "1"], ["0", "2"],
-      ["3", "5"], ["2", "4"], ["1", "3"], ["0", "3"],
-      ["2", "5"], ["1", "4"], ["0", "4"], ["2", "6"],
-      ["1", "5"], ["0", "5"], ["1", "6"], ["0", "6"],
-      ["2", "8"], ["1", "7"], ["0", "7"], ["1", "8"],
-      ["0", "8"], ["1", "9"], ["0", "9"], ["1", "10"],
-      ["0", "10"], ["0", "11"], ["1", "13"], ["0", "13"],
-      ["0", "14"], ["0", "15"]
+    /*
+      PAS HIER ALLES AAN:
+      naam = leaderboard, accounts en berichten
+      wachtwoord = wachtwoord van dat account
+      plus = pluspunten
+      min = minpunten
+    */
+    const spelers = [
+      { naam: "Sam", wachtwoord: "noot", plus: "20", min: "3" },
+      { naam: "Lisa", wachtwoord: "noot", plus: "18", min: "2" },
+      { naam: "Alex", wachtwoord: "noot", plus: "15", min: "1" },
+      { naam: "Noah", wachtwoord: "noot", plus: "12", min: "5" },
+      { naam: "Emma", wachtwoord: "noot", plus: "10", min: "2" },
+      { naam: "Milan", wachtwoord: "noot", plus: "9", min: "0" },
+      { naam: "Sophie", wachtwoord: "noot", plus: "8", min: "2" },
+      { naam: "Lucas", wachtwoord: "noot", plus: "7", min: "0" },
+      { naam: "Julia", wachtwoord: "noot", plus: "6", min: "1" },
+      { naam: "Daan", wachtwoord: "noot", plus: "5", min: "2" },
+      { naam: "Mila", wachtwoord: "noot", plus: "5", min: "0" },
+      { naam: "Finn", wachtwoord: "noot", plus: "4", min: "1" },
+      { naam: "Nora", wachtwoord: "noot", plus: "4", min: "2" },
+      { naam: "Sem", wachtwoord: "noot", plus: "3", min: "0" },
+      { naam: "Lotte", wachtwoord: "noot", plus: "3", min: "1" },
+      { naam: "Levi", wachtwoord: "noot", plus: "2", min: "0" },
+      { naam: "Eva", wachtwoord: "noot", plus: "2", min: "1" },
+      { naam: "Jesse", wachtwoord: "noot", plus: "1", min: "0" },
+      { naam: "Sara", wachtwoord: "noot", plus: "1", min: "1" },
+      { naam: "Timo", wachtwoord: "noot", plus: "0", min: "0" },
+      { naam: "Anna", wachtwoord: "noot", plus: "0", min: "1" },
+      { naam: "Bram", wachtwoord: "noot", plus: "0", min: "2" },
+      { naam: "Yara", wachtwoord: "noot", plus: "3", min: "5" },
+      { naam: "Liam", wachtwoord: "noot", plus: "2", min: "4" },
+      { naam: "Esmee", wachtwoord: "noot", plus: "1", min: "3" },
+      { naam: "Mees", wachtwoord: "noot", plus: "0", min: "3" },
+      { naam: "Zoë", wachtwoord: "noot", plus: "2", min: "5" },
+      { naam: "Jayden", wachtwoord: "noot", plus: "1", min: "4" },
+      { naam: "Fleur", wachtwoord: "noot", plus: "0", min: "4" },
+      { naam: "Olivier", wachtwoord: "noot", plus: "2", min: "6" },
+      { naam: "Sanne", wachtwoord: "noot", plus: "1", min: "5" },
+      { naam: "Thijs", wachtwoord: "noot", plus: "0", min: "5" },
+      { naam: "Evi", wachtwoord: "noot", plus: "1", min: "6" },
+      { naam: "Cas", wachtwoord: "noot", plus: "0", min: "6" },
+      { naam: "Isabel", wachtwoord: "noot", plus: "2", min: "8" },
+      { naam: "Luuk", wachtwoord: "noot", plus: "1", min: "7" },
+      { naam: "Tess", wachtwoord: "noot", plus: "0", min: "7" },
+      { naam: "Ruben", wachtwoord: "noot", plus: "1", min: "8" },
+      { naam: "Lynn", wachtwoord: "noot", plus: "0", min: "8" },
+      { naam: "Gijs", wachtwoord: "noot", plus: "1", min: "9" },
+      { naam: "Amber", wachtwoord: "noot", plus: "0", min: "9" },
+      { naam: "Boris", wachtwoord: "noot", plus: "1", min: "10" },
+      { naam: "Femke", wachtwoord: "noot", plus: "0", min: "10" },
+      { naam: "Niek", wachtwoord: "noot", plus: "0", min: "11" },
+      { naam: "Elin", wachtwoord: "noot", plus: "1", min: "13" },
+      { naam: "Wout", wachtwoord: "noot", plus: "0", min: "13" },
+      { naam: "Roos", wachtwoord: "noot", plus: "0", min: "14" },
+      { naam: "Mats", wachtwoord: "noot", plus: "0", min: "15" },
+      { naam: "Iris", wachtwoord: "noot", plus: "0", min: "16" },
+      { naam: "Dylan", wachtwoord: "noot", plus: "0", min: "17" }
     ];
 
     const items = [
@@ -153,31 +185,15 @@
       ["Diamanten badge", "Een zeldzame badge van diamant.", "150"]
     ];
 
-    function berekenTotaal(puntenRij) {
-      const pluspunten = Number(puntenRij[0]);
-      const minpunten = Number(puntenRij[1]);
+    function berekenTotaal(speler) {
+      const pluspunten = Number(speler.plus);
+      const minpunten = Number(speler.min);
 
       if (Number.isFinite(pluspunten) && Number.isFinite(minpunten)) {
         return pluspunten - Math.abs(minpunten);
       }
 
       return "Onbepaald";
-    }
-
-    function updatePuntenDisplay() {
-      if (huidigAccount === "") {
-        document.getElementById("account-status").textContent = "Niet ingelogd";
-        document.getElementById("punten-aantal").textContent = "0";
-        return;
-      }
-
-      const plek = namen.indexOf(huidigAccount);
-
-      document.getElementById("account-status").textContent =
-        "Ingelogd als: " + huidigAccount;
-
-      document.getElementById("punten-aantal").textContent =
-        berekenTotaal(punten[plek]);
     }
 
     function openTab(tabNaam, knop) {
@@ -198,10 +214,32 @@
       }
     }
 
+    function updatePuntenDisplay() {
+      if (huidigAccount === "") {
+        document.getElementById("account-status").textContent = "Niet ingelogd";
+        document.getElementById("punten-aantal").textContent = "0";
+        return;
+      }
+
+      const speler = spelers.find(function(persoon) {
+        return persoon.naam === huidigAccount;
+      });
+
+      document.getElementById("account-status").textContent =
+        "Ingelogd als: " + huidigAccount;
+
+      document.getElementById("punten-aantal").textContent =
+        berekenTotaal(speler);
+    }
+
     function wisselAccount(naam) {
+      const speler = spelers.find(function(persoon) {
+        return persoon.naam === naam;
+      });
+
       const wachtwoord = prompt("Vul het wachtwoord in voor " + naam + ":");
 
-      if (wachtwoord === "noot") {
+      if (wachtwoord === speler.wachtwoord) {
         huidigAccount = naam;
 
         document.getElementById("bericht-instructie").textContent =
@@ -237,13 +275,11 @@
         return;
       }
 
-      const { error } = await database
-        .from("messages")
-        .insert({
-          sender: huidigAccount,
-          recipient: ontvanger,
-          content: tekst
-        });
+      const { error } = await database.from("messages").insert({
+        sender: huidigAccount,
+        recipient: ontvanger,
+        content: tekst
+      });
 
       if (error) {
         alert("Het bericht kon niet worden verstuurd: " + error.message);
@@ -298,14 +334,14 @@
 
     const leaderboardLijst = document.getElementById("leaderboard-lijst");
 
-    namen.forEach(function(naam, index) {
+    spelers.forEach(function(speler, index) {
       leaderboardLijst.innerHTML += `
         <tr>
           <td>${index + 1}</td>
-          <td>${naam}</td>
-          <td>${punten[index][0]}</td>
-          <td>-${punten[index][1]}</td>
-          <td><strong>${berekenTotaal(punten[index])}</strong></td>
+          <td>${speler.naam}</td>
+          <td>${speler.plus}</td>
+          <td>-${speler.min}</td>
+          <td><strong>${berekenTotaal(speler)}</strong></td>
         </tr>
       `;
     });
@@ -326,18 +362,18 @@
     const accountLijst = document.getElementById("account-lijst");
     const ontvangerKeuze = document.getElementById("ontvanger");
 
-    accounts.forEach(function(account) {
+    spelers.forEach(function(speler) {
       accountLijst.innerHTML += `
         <div class="account-kaart">
-          <h2>${account}</h2>
-          <button class="wissel-knop" onclick="wisselAccount('${account}')">
+          <h2>${speler.naam}</h2>
+          <button class="wissel-knop" onclick="wisselAccount('${speler.naam}')">
             Wissel naar dit account
           </button>
         </div>
       `;
 
       ontvangerKeuze.innerHTML += `
-        <option value="${account}">${account}</option>
+        <option value="${speler.naam}">${speler.naam}</option>
       `;
     });
 
