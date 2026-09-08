@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="nl">
 <head>
@@ -79,6 +78,27 @@
         </table>
 
       </div>
+
+    </section>
+
+
+    <!-- ========================= -->
+    <!-- LEADERBOARD BEHEREN        -->
+    <!-- ========================= -->
+
+    <section
+      id="beheerLeaderboard"
+      class="tab-inhoud verborgen beheer-leaderboard"
+    >
+
+      <h1>Leaderboard beheren</h1>
+
+      <p class="beheer-uitleg">
+        Dit gedeelte is alleen beschikbaar voor Overheid.
+        Pas een naam, pluspunten of minpunten aan en klik daarna op Opslaan.
+      </p>
+
+      <div id="beheerLeaderboardLijst"></div>
 
     </section>
 
@@ -296,7 +316,7 @@
 
     /* =========================================================
        PUNTEN OMZETTEN
-       
+
        K = 1.000
        M = 1.000.000
        ========================================================= */
@@ -469,6 +489,8 @@
       bouwLeaderboard();
 
       bouwAccounts();
+
+      toonBeheerLeaderboard();
 
 
       if (huidigAccount !== "") {
@@ -673,6 +695,8 @@
 
         toonBerichten();
 
+        toonBeheerLeaderboard();
+
 
         alert(
           "Je bent ingelogd als " +
@@ -696,7 +720,7 @@
 
     /* =========================================================
        ACCOUNTS BOUWEN
-       
+
        BELANGRIJK:
        Hier staan GEEN wachtwoorden.
        ========================================================= */
@@ -903,6 +927,462 @@
 
         }
       );
+
+    }
+
+
+    /* =========================================================
+       LEADERBOARD BEHEREN
+       ========================================================= */
+
+    function beheerPuntenWaarde(waarde) {
+
+      const getal =
+        parsePunten(waarde);
+
+      if (!Number.isFinite(getal)) {
+        return String(waarde ?? "");
+      }
+
+      return Math.abs(getal);
+
+    }
+
+
+    function toonBeheerLeaderboard() {
+
+      const sectie =
+        document.getElementById(
+          "beheerLeaderboard"
+        );
+
+
+      if (!sectie) {
+        return;
+      }
+
+
+      /*
+       * Alleen Overheid ziet dit gedeelte.
+       */
+
+      if (huidigAccount !== overheidNaam) {
+
+        sectie.classList.add("verborgen");
+
+        return;
+
+      }
+
+
+      sectie.classList.remove("verborgen");
+
+      bouwBeheerLeaderboard();
+
+    }
+
+
+    function bouwBeheerLeaderboard() {
+
+      const container =
+        document.getElementById(
+          "beheerLeaderboardLijst"
+        );
+
+
+      if (!container) {
+        return;
+      }
+
+
+      if (huidigAccount !== overheidNaam) {
+
+        container.innerHTML = "";
+
+        return;
+
+      }
+
+
+      if (spelers.length === 0) {
+
+        container.innerHTML =
+          "<p>Er zijn nog geen spelers.</p>";
+
+        return;
+
+      }
+
+
+      let html = `
+
+        <div class="beheer-tabel-vak">
+
+          <table class="beheer-tabel">
+
+            <thead>
+
+              <tr>
+                <th>Naam</th>
+                <th>Pluspunten</th>
+                <th>Minpunten</th>
+                <th>Totaal</th>
+                <th>Actie</th>
+              </tr>
+
+            </thead>
+
+            <tbody>
+
+      `;
+
+
+      spelers.forEach(function(speler, index) {
+
+        const totaal =
+          berekenTotaal(speler);
+
+
+        html += `
+
+          <tr data-beheer-index="${index}">
+
+            <td>
+
+              <input
+                type="text"
+                class="beheer-naam"
+                value="${veiligeTekst(speler.naam)}"
+              >
+
+            </td>
+
+
+            <td>
+
+              <input
+                type="text"
+                class="beheer-plus"
+                value="${veiligeTekst(
+                  beheerPuntenWaarde(speler.plus)
+                )}"
+                inputmode="decimal"
+                placeholder="Bijv. 1000 of 1K"
+              >
+
+            </td>
+
+
+            <td>
+
+              <input
+                type="text"
+                class="beheer-min"
+                value="${veiligeTekst(
+                  beheerPuntenWaarde(speler.min)
+                )}"
+                inputmode="decimal"
+                placeholder="Bijv. 500 of 500K"
+              >
+
+            </td>
+
+
+            <td class="beheer-totaal">
+
+              <strong>
+                ${formatPunten(totaal)}
+              </strong>
+
+            </td>
+
+
+            <td>
+
+              <button
+                type="button"
+                class="beheer-opslaan-knop"
+                onclick="slaSpelerOp(${index})"
+              >
+                Opslaan
+              </button>
+
+            </td>
+
+          </tr>
+
+        `;
+
+      });
+
+
+      html += `
+
+            </tbody>
+
+          </table>
+
+        </div>
+
+      `;
+
+
+      container.innerHTML = html;
+
+    }
+
+
+    /* =========================================================
+       SPELER OPSLAAN
+       ========================================================= */
+
+    async function slaSpelerOp(index) {
+
+      if (huidigAccount !== overheidNaam) {
+
+        alert(
+          "Je bent niet ingelogd als Overheid."
+        );
+
+        return;
+
+      }
+
+
+      const speler =
+        spelers[index];
+
+
+      if (!speler) {
+
+        alert(
+          "Deze speler kon niet worden gevonden."
+        );
+
+        return;
+
+      }
+
+
+      const rij =
+        document.querySelector(
+          `[data-beheer-index="${index}"]`
+        );
+
+
+      if (!rij) {
+
+        alert(
+          "De invoervelden konden niet worden gevonden."
+        );
+
+        return;
+
+      }
+
+
+      const oudeNaam =
+        speler.naam;
+
+
+      const nieuweNaam =
+        rij
+          .querySelector(".beheer-naam")
+          .value
+          .trim();
+
+
+      const plus =
+        rij
+          .querySelector(".beheer-plus")
+          .value
+          .trim();
+
+
+      const min =
+        rij
+          .querySelector(".beheer-min")
+          .value
+          .trim();
+
+
+      if (!nieuweNaam) {
+
+        alert(
+          "De naam mag niet leeg zijn."
+        );
+
+        return;
+
+      }
+
+
+      if (!plus || !min) {
+
+        alert(
+          "Vul zowel pluspunten als minpunten in."
+        );
+
+        return;
+
+      }
+
+
+      const plusGetal =
+        parsePunten(plus);
+
+
+      const minGetal =
+        parsePunten(min);
+
+
+      if (
+        !Number.isFinite(plusGetal) ||
+        !Number.isFinite(minGetal)
+      ) {
+
+        alert(
+          "Pluspunten en minpunten moeten geldige getallen zijn."
+        );
+
+        return;
+
+      }
+
+
+      if (plusGetal < 0 || minGetal < 0) {
+
+        alert(
+          "Pluspunten en minpunten mogen niet negatief zijn."
+        );
+
+        return;
+
+      }
+
+
+      const wachtwoord =
+        prompt(
+          "Voer het Overheid-wachtwoord in om deze wijziging op te slaan:"
+        );
+
+
+      if (wachtwoord === null) {
+        return;
+      }
+
+
+      if (wachtwoord === "") {
+
+        alert(
+          "Vul een wachtwoord in."
+        );
+
+        return;
+
+      }
+
+
+      const knop =
+        rij.querySelector(
+          ".beheer-opslaan-knop"
+        );
+
+
+      knop.disabled = true;
+
+      knop.textContent =
+        "Opslaan...";
+
+
+      try {
+
+        const { data, error } =
+          await database.functions.invoke(
+            "beheer-leaderboard",
+            {
+              body: {
+
+                wachtwoord:
+                  wachtwoord,
+
+                oude_naam:
+                  oudeNaam,
+
+                naam:
+                  nieuweNaam,
+
+                plus:
+                  plus,
+
+                min:
+                  min
+
+              }
+            }
+          );
+
+
+        if (error) {
+
+          console.error(error);
+
+          alert(
+            "Opslaan mislukt:\n\n" +
+            error.message
+          );
+
+          return;
+
+        }
+
+
+        if (!data || data.success !== true) {
+
+          alert(
+            "Opslaan mislukt:\n\n" +
+            (
+              data?.error ||
+              "Onbekende fout."
+            )
+          );
+
+          return;
+
+        }
+
+
+        /*
+         * Spelers opnieuw uit Supabase laden.
+         */
+
+        await laadSpelers();
+
+
+        alert(
+          "De speler is succesvol opgeslagen."
+        );
+
+      }
+
+      catch (fout) {
+
+        console.error(fout);
+
+        alert(
+          "Er ging iets mis tijdens het opslaan."
+        );
+
+      }
+
+      finally {
+
+        knop.disabled = false;
+
+        knop.textContent =
+          "Opslaan";
+
+      }
 
     }
 
@@ -1309,6 +1789,32 @@
 
 
     /* =========================================================
+       REALTIME LEADERBOARD
+       ========================================================= */
+
+    database
+      .channel("players-changes")
+      .on(
+        "postgres_changes",
+        {
+          event: "*",
+          schema: "public",
+          table: "players"
+        },
+        async function() {
+
+          console.log(
+            "Leaderboard gewijzigd in Supabase."
+          );
+
+          await laadSpelers();
+
+        }
+      )
+      .subscribe();
+
+
+    /* =========================================================
        START
        ========================================================= */
 
@@ -1348,4 +1854,3 @@
 
 </body>
 </html>
-```
