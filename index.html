@@ -102,16 +102,16 @@
     <tbody>
       <tr>
         <td>Overheid</td>
-        <td>5 x Onbepaald</td>
+        <td>Onbeperkt</td>
       </tr>
     </tbody>
 
   </table>
 
   <p class="overheid-tekst">
-    Dit persoon is de overheid en bepaalt hoeveel punten je krijgt/verdient,
-    en hij heeft zelf technisch gezien oneindig veel punten.
-    Veel succes met je leven!
+    Dit is de overheid van de Puntenbank.
+    De overheid bepaalt hoeveel punten je krijgt of verdient
+    en heeft technisch gezien onbeperkt veel punten.
   </p>
 
 </section>
@@ -159,22 +159,74 @@
     Log eerst in via de tab Accounts.
   </p>
 
-  <label for="ontvanger">Stuur naar:</label>
 
-  <select id="ontvanger"></select>
+  <!-- ONTVANGER -->
+
+  <label for="ontvanger">
+    Stuur naar:
+  </label>
+
+  <select id="ontvanger" onchange="controleerAankoopOptie()">
+  </select>
+
 
   <br><br>
 
-  <label for="bericht-tekst">Bericht:</label>
+
+  <!-- NORMAAL BERICHT -->
+
+  <label for="bericht-tekst">
+    Bericht:
+  </label>
 
   <textarea
     id="bericht-tekst"
     placeholder="Typ hier je bericht..."
   ></textarea>
 
-  <button class="verstuur-knop" onclick="verstuurBericht()">
+
+  <button
+    class="verstuur-knop"
+    onclick="verstuurBericht()"
+  >
     Verstuur bericht
   </button>
+
+
+  <!-- ========================= -->
+  <!-- AANKOOP AANVRAGEN          -->
+  <!-- ========================= -->
+
+  <div
+    id="aankoop-vak"
+    style="display: none; margin-top: 30px;"
+  >
+
+    <h2>Aankoop aanvragen</h2>
+
+    <p>
+      Vraag via de overheid een product uit de itemshop aan.
+    </p>
+
+    <label for="aankoop-product">
+      Product:
+    </label>
+
+    <select id="aankoop-product"></select>
+
+    <button
+      class="verstuur-knop"
+      onclick="verstuurAankoopAanvraag()"
+    >
+      Aankoop aanvragen
+    </button>
+
+  </div>
+
+
+  <!-- ========================= -->
+  <!-- BERICHTENLIJST             -->
+  <!-- ========================= -->
 
   <h2>Jouw berichten</h2>
 
@@ -208,29 +260,34 @@
 
 
     /* =========================================================
+       OVERHEID ACCOUNT
+       
+       De overheid staat NIET in het leaderboard.
+       
+       Je kunt hier het wachtwoord veranderen.
+       ========================================================= */
+
+    const overheidAccount = {
+      naam: "Overheid",
+      wachtwoord: "overheid123"
+    };
+
+
+    /* =========================================================
        SPELERS
        
-       HIER KUN JE DE NAMEN EN PUNTEN AANPASSEN.
-
-       PUNTEN KUNNEN:
-       - gewone getallen zijn: 500
-       - K gebruiken: 10K
-       - M gebruiken: 2M
-       - decimalen gebruiken: 10.5K
-       - decimalen gebruiken: 1.5M
-
        K = duizend
        M = miljoen
-
-       VOORBEELD:
-
-       plus: "10.5K"
-       min: "300K"
-
-       TOTAAL:
-       10.500 - 300.000 = -289.500
-       Weergave: -289.5K
-
+       
+       Voorbeelden:
+       
+       "10K"
+       "10.5K"
+       "300K"
+       "2M"
+       "1.5M"
+       
+       Het totaal wordt automatisch berekend.
        ========================================================= */
 
     const spelers = [
@@ -366,15 +423,10 @@
 
 
     /* =========================================================
-       PUNTEN OMZETTEN NAAR EEN GETAL
+       PUNTEN OMZETTEN
        
-       1000  -> 1000
-       10K   -> 10000
-       10.5K -> 10500
-       1M    -> 1000000
-       1.5M  -> 1500000
-
-       Alleen K en M met hoofdletter worden herkend.
+       K = 1.000
+       M = 1.000.000
        ========================================================= */
 
     function parsePunten(waarde) {
@@ -383,9 +435,11 @@
         return waarde;
       }
 
+
       let tekst = String(waarde)
         .trim()
         .replace(/,/g, ".");
+
 
       if (tekst === "") {
         return NaN;
@@ -426,12 +480,7 @@
 
 
     /* =========================================================
-       GETAL MOOI WEERGEVEN
-       
-       10500    -> 10.5K
-       1000000  -> 1M
-       1500000  -> 1.5M
-       -289500  -> -289.5K
+       PUNTEN WEERGEVEN
        ========================================================= */
 
     function formatPunten(getal) {
@@ -484,7 +533,7 @@
 
 
     /* =========================================================
-       TOTAAL BEREKENEN
+       TOTAAL
        ========================================================= */
 
     function berekenTotaal(speler) {
@@ -575,6 +624,27 @@
       }
 
 
+      /* Overheid heeft onbeperkte punten */
+
+      if (huidigAccount === overheidAccount.naam) {
+
+        document
+          .getElementById("account-status")
+          .textContent =
+          "Ingelogd als: Overheid";
+
+
+        document
+          .getElementById("punten-aantal")
+          .textContent =
+          "∞";
+
+
+        return;
+
+      }
+
+
       const speler =
         spelers.find(function(persoon) {
 
@@ -610,15 +680,30 @@
 
     function wisselAccount(naam) {
 
-      const speler =
-        spelers.find(function(persoon) {
-
-          return persoon.naam === naam;
-
-        });
+      let account = null;
 
 
-      if (!speler) {
+      /* Kijk eerst of het de overheid is */
+
+      if (naam === overheidAccount.naam) {
+
+        account = overheidAccount;
+
+      }
+
+      else {
+
+        account =
+          spelers.find(function(persoon) {
+
+            return persoon.naam === naam;
+
+          });
+
+      }
+
+
+      if (!account) {
         return;
       }
 
@@ -629,7 +714,7 @@
         );
 
 
-      if (wachtwoord === speler.wachtwoord) {
+      if (wachtwoord === account.wachtwoord) {
 
         huidigAccount = naam;
 
@@ -641,6 +726,8 @@
 
 
         updatePuntenDisplay();
+
+        controleerAankoopOptie();
 
         toonBerichten();
 
@@ -675,7 +762,180 @@
 
 
     /* =========================================================
-       BERICHT VERSTUREN
+       AANKOOPVAK TONEN / VERBERGEN
+       
+       Het aankoopvak verschijnt alleen wanneer je
+       "Overheid" als ontvanger kiest.
+       ========================================================= */
+
+    function controleerAankoopOptie() {
+
+      const ontvanger =
+        document.getElementById("ontvanger").value;
+
+
+      const aankoopVak =
+        document.getElementById("aankoop-vak");
+
+
+      if (
+        huidigAccount !== "" &&
+        huidigAccount !== overheidAccount.naam &&
+        ontvanger === overheidAccount.naam
+      ) {
+
+        aankoopVak.style.display = "block";
+
+      }
+
+      else {
+
+        aankoopVak.style.display = "none";
+
+      }
+
+    }
+
+
+    /* =========================================================
+       AANKOOPPRODUCTEN IN DROPDOWN ZETTEN
+       ========================================================= */
+
+    function vulAankoopProducten() {
+
+      const keuze =
+        document.getElementById("aankoop-product");
+
+
+      keuze.innerHTML = "";
+
+
+      items.forEach(function(item) {
+
+        const optie =
+          document.createElement("option");
+
+
+        optie.value = item[0];
+
+        optie.textContent =
+          item[0] + " — " + item[2] + " punten";
+
+
+        keuze.appendChild(optie);
+
+      });
+
+    }
+
+
+    /* =========================================================
+       AANKOOPAANVRAAG VERSTUREN
+       
+       Voorbeeld:
+       
+       Piet wil 'Gouden ster' kopen:
+       
+       Dit wordt opgeslagen als normaal Supabase-bericht.
+       ========================================================= */
+
+    async function verstuurAankoopAanvraag() {
+
+      if (huidigAccount === "") {
+
+        alert("Log eerst in via Accounts.");
+
+        return;
+
+      }
+
+
+      if (huidigAccount === overheidAccount.naam) {
+
+        alert(
+          "De overheid kan geen aankoopaanvraag naar zichzelf sturen."
+        );
+
+        return;
+
+      }
+
+
+      const ontvanger =
+        document.getElementById("ontvanger").value;
+
+
+      if (ontvanger !== overheidAccount.naam) {
+
+        alert(
+          "Selecteer eerst Overheid als ontvanger."
+        );
+
+        return;
+
+      }
+
+
+      const product =
+        document.getElementById("aankoop-product").value;
+
+
+      if (!product) {
+
+        alert("Kies eerst een product.");
+
+        return;
+
+      }
+
+
+      const tekst =
+        huidigAccount +
+        " wil '" +
+        product +
+        "' kopen:";
+
+
+      const { error } =
+        await database
+          .from("messages")
+          .insert({
+
+            sender: huidigAccount,
+
+            recipient: overheidAccount.naam,
+
+            content: tekst
+
+          });
+
+
+      if (error) {
+
+        alert(
+          "De aankoopaanvraag kon niet worden verstuurd: " +
+          error.message
+        );
+
+        return;
+
+      }
+
+
+      alert(
+        "Aankoopaanvraag voor " +
+        product +
+        " is verstuurd naar de overheid."
+      );
+
+
+      toonBerichten();
+
+    }
+
+
+    /* =========================================================
+       NORMAAL BERICHT VERSTUREN
        ========================================================= */
 
     async function verstuurBericht() {
@@ -691,6 +951,15 @@
 
       const ontvanger =
         document.getElementById("ontvanger").value;
+
+
+      if (!ontvanger) {
+
+        alert("Kies eerst een ontvanger.");
+
+        return;
+
+      }
 
 
       const tekst =
@@ -746,7 +1015,10 @@
 
 
     /* =========================================================
-       BERICHTEN LADEN
+       BERICHTEN LADEN VAN SUPABASE
+       
+       Hierdoor worden berichten ook op andere laptops
+       weergegeven zolang dezelfde Supabase-database wordt gebruikt.
        ========================================================= */
 
     async function toonBerichten() {
@@ -797,7 +1069,7 @@
       }
 
 
-      if (data.length === 0) {
+      if (!data || data.length === 0) {
 
         berichtLijst.innerHTML =
           "<p>Nog geen berichten.</p>";
@@ -840,9 +1112,10 @@
     /* =========================================================
        LEADERBOARD
        
-       AUTOMATISCH SORTEREN:
-       hoogste totaal eerst
-       laagste totaal laatst
+       Alleen spelers worden gebruikt.
+       De overheid staat hier dus NIET tussen.
+       
+       Hoogste totaal = positie 1.
        ========================================================= */
 
     const leaderboardLijst =
@@ -862,6 +1135,7 @@
         if (!Number.isFinite(totaalA)) {
           return 1;
         }
+
 
         if (!Number.isFinite(totaalB)) {
           return -1;
@@ -883,7 +1157,9 @@
 
         <tr>
 
-          <td>${index + 1}</td>
+          <td>
+            ${index + 1}
+          </td>
 
           <td>
             ${veiligeTekst(speler.naam)}
@@ -952,6 +1228,9 @@
 
     /* =========================================================
        ACCOUNTS + ONTVANGERS
+       
+       De spelers komen hier + de overheid.
+       De overheid komt NIET in het leaderboard.
        ========================================================= */
 
     const accountLijst =
@@ -961,6 +1240,8 @@
     const ontvangerKeuze =
       document.getElementById("ontvanger");
 
+
+    /* Spelers */
 
     spelers.forEach(function(speler) {
 
@@ -995,11 +1276,51 @@
     });
 
 
+    /* Overheid */
+
+    accountLijst.innerHTML += `
+
+      <div class="account-kaart">
+
+        <h2>
+          Overheid
+        </h2>
+
+        <button
+          class="wissel-knop"
+          onclick="wisselAccount('Overheid')"
+        >
+          Wissel naar dit account
+        </button>
+
+      </div>
+
+    `;
+
+
+    ontvangerKeuze.innerHTML += `
+
+      <option value="Overheid">
+        Overheid
+      </option>
+
+    `;
+
+
+    /* =========================================================
+       AANKOOPPRODUCTEN VULLEN
+       ========================================================= */
+
+    vulAankoopProducten();
+
+
     /* =========================================================
        START
        ========================================================= */
 
     updatePuntenDisplay();
+
+    controleerAankoopOptie();
 
 
     /* =========================================================
