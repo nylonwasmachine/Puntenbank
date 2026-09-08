@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="nl">
 <head>
   <meta charset="UTF-8">
@@ -9,6 +10,7 @@
 </head>
 
 <body>
+
   <div class="punten-display">
     <span id="account-status">Niet ingelogd</span><br>
     Jouw punten: <strong id="punten-aantal">0</strong>
@@ -24,366 +26,997 @@
   </nav>
 
   <main>
-    <section id="punten" class="tab-inhoud punten-pagina">
-      <h1>Dit is de Puntenbank</h1>
-      <p>Welkom bij de Puntenbank. Hier vind je informatie over punten.</p>
-      <p>Je kunt punten verdienen door goed mee te doen en opdrachten af te ronden.</p>
-      <p>Je punten kunnen worden gebruikt voor beloningen.</p>
-    </section>
 
-    <section id="leaderboard" class="tab-inhoud verborgen">
-      <h1>Leaderboard</h1>
+```
+<!-- ========================= -->
+<!-- PUNTEN                     -->
+<!-- ========================= -->
 
-      <div class="tabel-vak">
-        <table>
-          <thead>
-            <tr>
-              <th>Positie</th>
-              <th>Naam</th>
-              <th>Pluspunten</th>
-              <th>Minpunten</th>
-              <th>Totaal</th>
-            </tr>
-          </thead>
-          <tbody id="leaderboard-lijst"></tbody>
-        </table>
-      </div>
-    </section>
+<section id="punten" class="tab-inhoud punten-pagina">
 
-    <section id="overheid" class="tab-inhoud verborgen overheid-pagina">
-      <h1>Overheid</h1>
+  <h1>Dit is de Puntenbank</h1>
 
-      <table class="overheid-tabel">
-        <thead>
-          <tr>
-            <th>Naam</th>
-            <th>Aantal punten</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Overheid</td>
-            <td>5 x Onbepaald</td>
-          </tr>
-        </tbody>
-      </table>
+  <p>
+    Welkom bij de Puntenbank. Hier vind je informatie over punten.
+  </p>
 
-      <p class="overheid-tekst">
-        Dit persoon is de overheid en bepaalt hoeveel punten je krijgt/verdient,
-        en hij heeft zelf technisch gezien oneindig veel punten.
-        Veel succes met je leven!
-      </p>
-    </section>
+  <p>
+    Je kunt punten verdienen door goed mee te doen en opdrachten af te ronden.
+  </p>
 
-    <section id="itemshop" class="tab-inhoud verborgen">
-      <h1>Itemshop</h1>
-      <div id="item-lijst" class="item-lijst"></div>
-    </section>
+  <p>
+    Je punten kunnen worden gebruikt voor beloningen.
+  </p>
 
-    <section id="accounts" class="tab-inhoud verborgen">
-      <h1>Accounts</h1>
-      <p>Kies een account en vul het bijbehorende wachtwoord in.</p>
-      <div id="account-lijst" class="account-lijst"></div>
-    </section>
+</section>
 
-    <section id="berichten" class="tab-inhoud verborgen berichten-pagina">
-      <h1>Berichten</h1>
 
-      <p id="bericht-instructie">Log eerst in via de tab Accounts.</p>
+<!-- ========================= -->
+<!-- LEADERBOARD                -->
+<!-- ========================= -->
 
-      <label for="ontvanger">Stuur naar:</label>
-      <select id="ontvanger"></select>
+<section id="leaderboard" class="tab-inhoud verborgen">
 
-      <br><br>
+  <h1>Leaderboard</h1>
 
-      <label for="bericht-tekst">Bericht:</label>
-      <textarea id="bericht-tekst" placeholder="Typ hier je bericht..."></textarea>
+  <div class="tabel-vak">
 
-      <button class="verstuur-knop" onclick="verstuurBericht()">Verstuur bericht</button>
+    <table>
 
-      <h2>Jouw berichten</h2>
-      <div id="bericht-lijst" class="bericht-lijst"></div>
-    </section>
+      <thead>
+        <tr>
+          <th>Positie</th>
+          <th>Naam</th>
+          <th>Pluspunten</th>
+          <th>Minpunten</th>
+          <th>Totaal</th>
+        </tr>
+      </thead>
+
+      <tbody id="leaderboard-lijst"></tbody>
+
+    </table>
+
+  </div>
+
+</section>
+
+
+<!-- ========================= -->
+<!-- OVERHEID                   -->
+<!-- ========================= -->
+
+<section id="overheid" class="tab-inhoud verborgen overheid-pagina">
+
+  <h1>Overheid</h1>
+
+  <table class="overheid-tabel">
+
+    <thead>
+      <tr>
+        <th>Naam</th>
+        <th>Aantal punten</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr>
+        <td>Overheid</td>
+        <td>5 x Onbepaald</td>
+      </tr>
+    </tbody>
+
+  </table>
+
+  <p class="overheid-tekst">
+    Dit persoon is de overheid en bepaalt hoeveel punten je krijgt/verdient,
+    en hij heeft zelf technisch gezien oneindig veel punten.
+    Veel succes met je leven!
+  </p>
+
+</section>
+
+
+<!-- ========================= -->
+<!-- ITEMSHOP                   -->
+<!-- ========================= -->
+
+<section id="itemshop" class="tab-inhoud verborgen">
+
+  <h1>Itemshop</h1>
+
+  <div id="item-lijst" class="item-lijst"></div>
+
+</section>
+
+
+<!-- ========================= -->
+<!-- ACCOUNTS                   -->
+<!-- ========================= -->
+
+<section id="accounts" class="tab-inhoud verborgen">
+
+  <h1>Accounts</h1>
+
+  <p>
+    Kies een account en vul het bijbehorende wachtwoord in.
+  </p>
+
+  <div id="account-lijst" class="account-lijst"></div>
+
+</section>
+
+
+<!-- ========================= -->
+<!-- BERICHTEN                  -->
+<!-- ========================= -->
+
+<section id="berichten" class="tab-inhoud verborgen berichten-pagina">
+
+  <h1>Berichten</h1>
+
+  <p id="bericht-instructie">
+    Log eerst in via de tab Accounts.
+  </p>
+
+  <label for="ontvanger">Stuur naar:</label>
+
+  <select id="ontvanger"></select>
+
+  <br><br>
+
+  <label for="bericht-tekst">Bericht:</label>
+
+  <textarea
+    id="bericht-tekst"
+    placeholder="Typ hier je bericht..."
+  ></textarea>
+
+  <button class="verstuur-knop" onclick="verstuurBericht()">
+    Verstuur bericht
+  </button>
+
+  <h2>Jouw berichten</h2>
+
+  <div id="bericht-lijst" class="bericht-lijst"></div>
+
+</section>
+```
+
   </main>
 
   <script>
-    const supabaseUrl = "https://qelqaiczgibxyxfqtapg.supabase.co";
-    const supabaseKey = "sb_publishable_aZSOOfRnROvePvZ2WWNv8g_ZhfZTCes";
-    const database = window.supabase.createClient(supabaseUrl, supabaseKey);
+
+    /* =========================================================
+       SUPABASE
+       ========================================================= */
+
+    const supabaseUrl =
+      "https://qelqaiczgibxyxfqtapg.supabase.co";
+
+    const supabaseKey =
+      "sb_publishable_aZSOOfRnROvePvZ2WWNv8g_ZhfZTCes";
+
+    const database =
+      window.supabase.createClient(
+        supabaseUrl,
+        supabaseKey
+      );
+
 
     let huidigAccount = "";
 
-    /*
-      PAS HIER ALLES AAN:
-      naam = leaderboard, accounts en berichten
-      wachtwoord = wachtwoord van dat account
-      plus = pluspunten
-      min = minpunten
-    */
+
+    /* =========================================================
+       SPELERS
+       
+       HIER KUN JE DE NAMEN EN PUNTEN AANPASSEN.
+
+       PUNTEN KUNNEN:
+       - gewone getallen zijn: 500
+       - K gebruiken: 10K
+       - M gebruiken: 2M
+       - decimalen gebruiken: 10.5K
+       - decimalen gebruiken: 1.5M
+
+       K = duizend
+       M = miljoen
+
+       VOORBEELD:
+
+       plus: "10.5K"
+       min: "300K"
+
+       TOTAAL:
+       10.500 - 300.000 = -289.500
+       Weergave: -289.5K
+
+       ========================================================= */
+
     const spelers = [
-      { naam: "Piet", wachtwoord: "appel123", plus: "17", min: "7" },
-      { naam: "Lisa", wachtwoord: "noot", plus: "18", min: "2" },
-      { naam: "Alex", wachtwoord: "noot", plus: "15", min: "1" },
-      { naam: "Noah", wachtwoord: "noot", plus: "12", min: "5" },
-      { naam: "Emma", wachtwoord: "noot", plus: "10", min: "2" },
-      { naam: "Milan", wachtwoord: "noot", plus: "9", min: "0" },
-      { naam: "Sophie", wachtwoord: "noot", plus: "8", min: "2" },
-      { naam: "Lucas", wachtwoord: "noot", plus: "7", min: "0" },
-      { naam: "Julia", wachtwoord: "noot", plus: "6", min: "1" },
-      { naam: "Daan", wachtwoord: "noot", plus: "5", min: "2" },
-      { naam: "Mila", wachtwoord: "noot", plus: "5", min: "0" },
-      { naam: "Finn", wachtwoord: "noot", plus: "4", min: "1" },
-      { naam: "Nora", wachtwoord: "noot", plus: "4", min: "2" },
-      { naam: "Sem", wachtwoord: "noot", plus: "3", min: "0" },
-      { naam: "Lotte", wachtwoord: "noot", plus: "3", min: "1" },
-      { naam: "Levi", wachtwoord: "noot", plus: "2", min: "0" },
-      { naam: "Eva", wachtwoord: "noot", plus: "2", min: "1" },
-      { naam: "Jesse", wachtwoord: "noot", plus: "1", min: "0" },
-      { naam: "Sara", wachtwoord: "noot", plus: "1", min: "1" },
+
+      { naam: "Piet", wachtwoord: "appel123", plus: "10.5K", min: "300K" },
+
+      { naam: "Lisa", wachtwoord: "noot", plus: "18K", min: "2K" },
+
+      { naam: "Alex", wachtwoord: "noot", plus: "15K", min: "1K" },
+
+      { naam: "Noah", wachtwoord: "noot", plus: "12K", min: "5K" },
+
+      { naam: "Emma", wachtwoord: "noot", plus: "10K", min: "2K" },
+
+      { naam: "Milan", wachtwoord: "noot", plus: "9K", min: "0" },
+
+      { naam: "Sophie", wachtwoord: "noot", plus: "8K", min: "2K" },
+
+      { naam: "Lucas", wachtwoord: "noot", plus: "7K", min: "0" },
+
+      { naam: "Julia", wachtwoord: "noot", plus: "6K", min: "1K" },
+
+      { naam: "Daan", wachtwoord: "noot", plus: "5K", min: "2K" },
+
+      { naam: "Mila", wachtwoord: "noot", plus: "5K", min: "0" },
+
+      { naam: "Finn", wachtwoord: "noot", plus: "4K", min: "1K" },
+
+      { naam: "Nora", wachtwoord: "noot", plus: "4K", min: "2K" },
+
+      { naam: "Sem", wachtwoord: "noot", plus: "3K", min: "0" },
+
+      { naam: "Lotte", wachtwoord: "noot", plus: "3K", min: "1K" },
+
+      { naam: "Levi", wachtwoord: "noot", plus: "2K", min: "0" },
+
+      { naam: "Eva", wachtwoord: "noot", plus: "2K", min: "1K" },
+
+      { naam: "Jesse", wachtwoord: "noot", plus: "1K", min: "0" },
+
+      { naam: "Sara", wachtwoord: "noot", plus: "1K", min: "1K" },
+
       { naam: "Timo", wachtwoord: "noot", plus: "0", min: "0" },
-      { naam: "Anna", wachtwoord: "noot", plus: "0", min: "1" },
-      { naam: "Bram", wachtwoord: "noot", plus: "0", min: "2" },
-      { naam: "Yara", wachtwoord: "noot", plus: "3", min: "5" },
-      { naam: "Liam", wachtwoord: "noot", plus: "2", min: "4" },
-      { naam: "Esmee", wachtwoord: "noot", plus: "1", min: "3" },
-      { naam: "Mees", wachtwoord: "noot", plus: "0", min: "3" },
-      { naam: "Zoë", wachtwoord: "noot", plus: "2", min: "5" },
-      { naam: "Jayden", wachtwoord: "noot", plus: "1", min: "4" },
-      { naam: "Fleur", wachtwoord: "noot", plus: "0", min: "4" },
-      { naam: "Olivier", wachtwoord: "noot", plus: "2", min: "6" },
-      { naam: "Sanne", wachtwoord: "noot", plus: "1", min: "5" },
-      { naam: "Thijs", wachtwoord: "noot", plus: "0", min: "5" },
-      { naam: "Evi", wachtwoord: "noot", plus: "1", min: "6" },
-      { naam: "Cas", wachtwoord: "noot", plus: "0", min: "6" },
-      { naam: "Isabel", wachtwoord: "noot", plus: "2", min: "8" },
-      { naam: "Luuk", wachtwoord: "noot", plus: "1", min: "7" },
-      { naam: "Tess", wachtwoord: "noot", plus: "0", min: "7" },
-      { naam: "Ruben", wachtwoord: "noot", plus: "1", min: "8" },
-      { naam: "Lynn", wachtwoord: "noot", plus: "0", min: "8" },
-      { naam: "Gijs", wachtwoord: "noot", plus: "1", min: "9" },
-      { naam: "Amber", wachtwoord: "noot", plus: "0", min: "9" },
-      { naam: "Boris", wachtwoord: "noot", plus: "1", min: "10" },
-      { naam: "Femke", wachtwoord: "noot", plus: "0", min: "10" },
-      { naam: "Niek", wachtwoord: "noot", plus: "0", min: "11" },
-      { naam: "Elin", wachtwoord: "noot", plus: "1", min: "13" },
-      { naam: "Wout", wachtwoord: "noot", plus: "0", min: "13" },
-      { naam: "Roos", wachtwoord: "noot", plus: "0", min: "14" },
-      { naam: "Mats", wachtwoord: "noot", plus: "0", min: "15" },
-      { naam: "Iris", wachtwoord: "noot", plus: "0", min: "16" },
-      { naam: "Dylan", wachtwoord: "noot", plus: "0", min: "17" }
+
+      { naam: "Anna", wachtwoord: "noot", plus: "0", min: "1K" },
+
+      { naam: "Bram", wachtwoord: "noot", plus: "0", min: "2K" },
+
+      { naam: "Yara", wachtwoord: "noot", plus: "3K", min: "5K" },
+
+      { naam: "Liam", wachtwoord: "noot", plus: "2K", min: "4K" },
+
+      { naam: "Esmee", wachtwoord: "noot", plus: "1K", min: "3K" },
+
+      { naam: "Mees", wachtwoord: "noot", plus: "0", min: "3K" },
+
+      { naam: "Zoë", wachtwoord: "noot", plus: "2K", min: "5K" },
+
+      { naam: "Jayden", wachtwoord: "noot", plus: "1K", min: "4K" },
+
+      { naam: "Fleur", wachtwoord: "noot", plus: "0", min: "4K" },
+
+      { naam: "Olivier", wachtwoord: "noot", plus: "2K", min: "6K" },
+
+      { naam: "Sanne", wachtwoord: "noot", plus: "1K", min: "5K" },
+
+      { naam: "Thijs", wachtwoord: "noot", plus: "0", min: "5K" },
+
+      { naam: "Evi", wachtwoord: "noot", plus: "1K", min: "6K" },
+
+      { naam: "Cas", wachtwoord: "noot", plus: "0", min: "6K" },
+
+      { naam: "Isabel", wachtwoord: "noot", plus: "2K", min: "8K" },
+
+      { naam: "Luuk", wachtwoord: "noot", plus: "1K", min: "7K" },
+
+      { naam: "Tess", wachtwoord: "noot", plus: "0", min: "7K" },
+
+      { naam: "Ruben", wachtwoord: "noot", plus: "1K", min: "8K" },
+
+      { naam: "Lynn", wachtwoord: "noot", plus: "0", min: "8K" },
+
+      { naam: "Gijs", wachtwoord: "noot", plus: "1K", min: "9K" },
+
+      { naam: "Amber", wachtwoord: "noot", plus: "0", min: "9K" },
+
+      { naam: "Boris", wachtwoord: "noot", plus: "1K", min: "10K" },
+
+      { naam: "Femke", wachtwoord: "noot", plus: "0", min: "10K" },
+
+      { naam: "Niek", wachtwoord: "noot", plus: "0", min: "11K" },
+
+      { naam: "Elin", wachtwoord: "noot", plus: "1K", min: "13K" },
+
+      { naam: "Wout", wachtwoord: "noot", plus: "0", min: "13K" },
+
+      { naam: "Roos", wachtwoord: "noot", plus: "0", min: "14K" },
+
+      { naam: "Mats", wachtwoord: "noot", plus: "0", min: "15K" },
+
+      { naam: "Iris", wachtwoord: "noot", plus: "0", min: "16K" },
+
+      { naam: "Dylan", wachtwoord: "noot", plus: "0", min: "17K" }
+
     ];
+
+
+    /* =========================================================
+       ITEMS
+       ========================================================= */
 
     const items = [
+
       ["Gouden ster", "Een gouden ster als beloning.", "10"],
+
       ["Mysteriebox", "Een doos met een onbekende verrassing.", "25"],
+
       ["VIP-kaart", "Een speciale VIP-kaart.", "50"],
+
       ["Zilveren medaille", "Een mooie zilveren medaille.", "15"],
+
       ["Puntenboost", "Een speciale puntenboost.", "30"],
+
       ["Kroon", "Een kroon voor een echte winnaar.", "100"],
+
       ["Schatkist", "Een kist vol met schatten.", "75"],
+
       ["Gelukssteen", "Een steen die geluk brengt.", "20"],
+
       ["Diamanten badge", "Een zeldzame badge van diamant.", "150"]
+
     ];
 
-    function berekenTotaal(speler) {
-      const pluspunten = Number(speler.plus);
-      const minpunten = Number(speler.min);
 
-      if (Number.isFinite(pluspunten) && Number.isFinite(minpunten)) {
-        return pluspunten - Math.abs(minpunten);
+    /* =========================================================
+       PUNTEN OMZETTEN NAAR EEN GETAL
+       
+       1000  -> 1000
+       10K   -> 10000
+       10.5K -> 10500
+       1M    -> 1000000
+       1.5M  -> 1500000
+
+       Alleen K en M met hoofdletter worden herkend.
+       ========================================================= */
+
+    function parsePunten(waarde) {
+
+      if (typeof waarde === "number") {
+        return waarde;
       }
 
-      return "Onbepaald";
+      let tekst = String(waarde)
+        .trim()
+        .replace(/,/g, ".");
+
+      if (tekst === "") {
+        return NaN;
+      }
+
+
+      let vermenigvuldiger = 1;
+
+
+      if (tekst.endsWith("K")) {
+
+        vermenigvuldiger = 1000;
+
+        tekst = tekst.slice(0, -1);
+
+      }
+
+      else if (tekst.endsWith("M")) {
+
+        vermenigvuldiger = 1000000;
+
+        tekst = tekst.slice(0, -1);
+
+      }
+
+
+      const getal = Number(tekst);
+
+
+      if (!Number.isFinite(getal)) {
+        return NaN;
+      }
+
+
+      return getal * vermenigvuldiger;
+
     }
 
+
+    /* =========================================================
+       GETAL MOOI WEERGEVEN
+       
+       10500    -> 10.5K
+       1000000  -> 1M
+       1500000  -> 1.5M
+       -289500  -> -289.5K
+       ========================================================= */
+
+    function formatPunten(getal) {
+
+      if (!Number.isFinite(getal)) {
+        return "Onbepaald";
+      }
+
+
+      const negatief = getal < 0;
+
+      const absoluut = Math.abs(getal);
+
+      let resultaat;
+
+
+      if (absoluut >= 1000000) {
+
+        resultaat =
+          (absoluut / 1000000)
+            .toFixed(2)
+            .replace(/\.?0+$/, "") + "M";
+
+      }
+
+      else if (absoluut >= 1000) {
+
+        resultaat =
+          (absoluut / 1000)
+            .toFixed(2)
+            .replace(/\.?0+$/, "") + "K";
+
+      }
+
+      else {
+
+        resultaat =
+          absoluut
+            .toFixed(2)
+            .replace(/\.?0+$/, "");
+
+      }
+
+
+      return negatief
+        ? "-" + resultaat
+        : resultaat;
+
+    }
+
+
+    /* =========================================================
+       TOTAAL BEREKENEN
+       ========================================================= */
+
+    function berekenTotaal(speler) {
+
+      const pluspunten =
+        parsePunten(speler.plus);
+
+      const minpunten =
+        parsePunten(speler.min);
+
+
+      if (
+        Number.isFinite(pluspunten) &&
+        Number.isFinite(minpunten)
+      ) {
+
+        return pluspunten - Math.abs(minpunten);
+
+      }
+
+
+      return NaN;
+
+    }
+
+
+    /* =========================================================
+       TABBLADEN
+       ========================================================= */
+
     function openTab(tabNaam, knop) {
-      document.querySelectorAll(".tab-inhoud").forEach(function(tab) {
-        tab.classList.add("verborgen");
-      });
 
-      document.getElementById(tabNaam).classList.remove("verborgen");
+      document
+        .querySelectorAll(".tab-inhoud")
+        .forEach(function(tab) {
 
-      document.querySelectorAll(".tab-knop").forEach(function(tabKnop) {
-        tabKnop.classList.remove("actief");
-      });
+          tab.classList.add("verborgen");
+
+        });
+
+
+      document
+        .getElementById(tabNaam)
+        .classList.remove("verborgen");
+
+
+      document
+        .querySelectorAll(".tab-knop")
+        .forEach(function(tabKnop) {
+
+          tabKnop.classList.remove("actief");
+
+        });
+
 
       knop.classList.add("actief");
 
+
       if (tabNaam === "berichten") {
+
         toonBerichten();
+
       }
+
     }
 
+
+    /* =========================================================
+       PUNTENDISPLAY
+       ========================================================= */
+
     function updatePuntenDisplay() {
+
       if (huidigAccount === "") {
-        document.getElementById("account-status").textContent = "Niet ingelogd";
-        document.getElementById("punten-aantal").textContent = "0";
+
+        document
+          .getElementById("account-status")
+          .textContent = "Niet ingelogd";
+
+
+        document
+          .getElementById("punten-aantal")
+          .textContent = "0";
+
+
+        return;
+
+      }
+
+
+      const speler =
+        spelers.find(function(persoon) {
+
+          return persoon.naam === huidigAccount;
+
+        });
+
+
+      if (!speler) {
         return;
       }
 
-      const speler = spelers.find(function(persoon) {
-        return persoon.naam === huidigAccount;
-      });
 
-      document.getElementById("account-status").textContent =
+      document
+        .getElementById("account-status")
+        .textContent =
         "Ingelogd als: " + huidigAccount;
 
-      document.getElementById("punten-aantal").textContent =
-        berekenTotaal(speler);
+
+      document
+        .getElementById("punten-aantal")
+        .textContent =
+        formatPunten(
+          berekenTotaal(speler)
+        );
+
     }
+
+
+    /* =========================================================
+       ACCOUNT WISSELEN
+       ========================================================= */
 
     function wisselAccount(naam) {
-      const speler = spelers.find(function(persoon) {
-        return persoon.naam === naam;
-      });
 
-      const wachtwoord = prompt("Vul het wachtwoord in voor " + naam + ":");
+      const speler =
+        spelers.find(function(persoon) {
+
+          return persoon.naam === naam;
+
+        });
+
+
+      if (!speler) {
+        return;
+      }
+
+
+      const wachtwoord =
+        prompt(
+          "Vul het wachtwoord in voor " + naam + ":"
+        );
+
 
       if (wachtwoord === speler.wachtwoord) {
+
         huidigAccount = naam;
 
-        document.getElementById("bericht-instructie").textContent =
+
+        document
+          .getElementById("bericht-instructie")
+          .textContent =
           "Je bent ingelogd als " + naam + ".";
 
+
         updatePuntenDisplay();
+
         toonBerichten();
 
-        alert("Je bent ingelogd als " + naam + ".");
-      } else {
-        alert("Verkeerd wachtwoord.");
+
+        alert(
+          "Je bent ingelogd als " + naam + "."
+        );
+
       }
+
+      else {
+
+        alert("Verkeerd wachtwoord.");
+
+      }
+
     }
 
+
+    /* =========================================================
+       VEILIGE TEKST
+       ========================================================= */
+
     function veiligeTekst(tekst) {
+
       return String(tekst)
         .replace(/&/g, "&amp;")
         .replace(/</g, "&lt;")
         .replace(/>/g, "&gt;");
+
     }
+
+
+    /* =========================================================
+       BERICHT VERSTUREN
+       ========================================================= */
 
     async function verstuurBericht() {
+
       if (huidigAccount === "") {
+
         alert("Log eerst in via Accounts.");
+
         return;
+
       }
 
-      const ontvanger = document.getElementById("ontvanger").value;
-      const tekst = document.getElementById("bericht-tekst").value.trim();
+
+      const ontvanger =
+        document.getElementById("ontvanger").value;
+
+
+      const tekst =
+        document
+          .getElementById("bericht-tekst")
+          .value
+          .trim();
+
 
       if (tekst === "") {
+
         alert("Typ eerst een bericht.");
+
         return;
+
       }
 
-      const { error } = await database.from("messages").insert({
-        sender: huidigAccount,
-        recipient: ontvanger,
-        content: tekst
-      });
+
+      const { error } =
+        await database
+          .from("messages")
+          .insert({
+
+            sender: huidigAccount,
+
+            recipient: ontvanger,
+
+            content: tekst
+
+          });
+
 
       if (error) {
-        alert("Het bericht kon niet worden verstuurd: " + error.message);
+
+        alert(
+          "Het bericht kon niet worden verstuurd: " +
+          error.message
+        );
+
         return;
+
       }
 
-      document.getElementById("bericht-tekst").value = "";
+
+      document
+        .getElementById("bericht-tekst")
+        .value = "";
+
+
       toonBerichten();
+
     }
 
+
+    /* =========================================================
+       BERICHTEN LADEN
+       ========================================================= */
+
     async function toonBerichten() {
-      const berichtLijst = document.getElementById("bericht-lijst");
+
+      const berichtLijst =
+        document.getElementById("bericht-lijst");
+
 
       if (huidigAccount === "") {
-        berichtLijst.innerHTML = "<p>Log in om berichten te zien.</p>";
+
+        berichtLijst.innerHTML =
+          "<p>Log in om berichten te zien.</p>";
+
         return;
+
       }
 
-      berichtLijst.innerHTML = "<p>Berichten laden...</p>";
 
-      const { data, error } = await database
-        .from("messages")
-        .select("*")
-        .or("sender.eq." + huidigAccount + ",recipient.eq." + huidigAccount)
-        .order("created_at", { ascending: false });
+      berichtLijst.innerHTML =
+        "<p>Berichten laden...</p>";
+
+
+      const { data, error } =
+        await database
+          .from("messages")
+          .select("*")
+          .or(
+            "sender.eq." +
+            huidigAccount +
+            ",recipient.eq." +
+            huidigAccount
+          )
+          .order(
+            "created_at",
+            { ascending: false }
+          );
+
 
       if (error) {
+
         berichtLijst.innerHTML =
-          "<p>Fout bij laden: " + veiligeTekst(error.message) + "</p>";
+          "<p>Fout bij laden: " +
+          veiligeTekst(error.message) +
+          "</p>";
+
         return;
+
       }
 
+
       if (data.length === 0) {
-        berichtLijst.innerHTML = "<p>Nog geen berichten.</p>";
+
+        berichtLijst.innerHTML =
+          "<p>Nog geen berichten.</p>";
+
         return;
+
       }
+
 
       berichtLijst.innerHTML = "";
 
+
       data.forEach(function(bericht) {
+
         berichtLijst.innerHTML += `
+
           <div class="bericht">
-            <strong>Van:</strong> ${veiligeTekst(bericht.sender)}
+
+            <strong>Van:</strong>
+            ${veiligeTekst(bericht.sender)}
+
             <br>
-            <strong>Naar:</strong> ${veiligeTekst(bericht.recipient)}
+
+            <strong>Naar:</strong>
+            ${veiligeTekst(bericht.recipient)}
+
             <br><br>
+
             ${veiligeTekst(bericht.content)}
+
           </div>
+
         `;
+
       });
+
     }
 
-    const leaderboardLijst = document.getElementById("leaderboard-lijst");
 
-    spelers.forEach(function(speler, index) {
+    /* =========================================================
+       LEADERBOARD
+       
+       AUTOMATISCH SORTEREN:
+       hoogste totaal eerst
+       laagste totaal laatst
+       ========================================================= */
+
+    const leaderboardLijst =
+      document.getElementById("leaderboard-lijst");
+
+
+    const gesorteerdeSpelers =
+      [...spelers].sort(function(a, b) {
+
+        const totaalA =
+          berekenTotaal(a);
+
+        const totaalB =
+          berekenTotaal(b);
+
+
+        if (!Number.isFinite(totaalA)) {
+          return 1;
+        }
+
+        if (!Number.isFinite(totaalB)) {
+          return -1;
+        }
+
+
+        return totaalB - totaalA;
+
+      });
+
+
+    gesorteerdeSpelers.forEach(function(speler, index) {
+
+      const totaal =
+        berekenTotaal(speler);
+
+
       leaderboardLijst.innerHTML += `
+
         <tr>
+
           <td>${index + 1}</td>
-          <td>${speler.naam}</td>
-          <td>${speler.plus}</td>
-          <td>-${speler.min}</td>
-          <td><strong>${berekenTotaal(speler)}</strong></td>
+
+          <td>
+            ${veiligeTekst(speler.naam)}
+          </td>
+
+          <td>
+            ${veiligeTekst(speler.plus)}
+          </td>
+
+          <td>
+            -${veiligeTekst(speler.min)}
+          </td>
+
+          <td>
+            <strong>
+              ${formatPunten(totaal)}
+            </strong>
+          </td>
+
         </tr>
+
       `;
+
     });
 
-    const itemLijst = document.getElementById("item-lijst");
+
+    /* =========================================================
+       ITEMSHOP
+       ========================================================= */
+
+    const itemLijst =
+      document.getElementById("item-lijst");
+
 
     items.forEach(function(item) {
+
       itemLijst.innerHTML += `
+
         <article class="item-kaart">
-          <h2>${item[0]}</h2>
-          <p>${item[1]}</p>
-          <p class="prijs">${item[2]} punten</p>
-          <button class="koop-knop" disabled>Kopen</button>
+
+          <h2>
+            ${veiligeTekst(item[0])}
+          </h2>
+
+          <p>
+            ${veiligeTekst(item[1])}
+          </p>
+
+          <p class="prijs">
+            ${veiligeTekst(item[2])} punten
+          </p>
+
+          <button
+            class="koop-knop"
+            disabled
+          >
+            Kopen
+          </button>
+
         </article>
+
       `;
+
     });
 
-    const accountLijst = document.getElementById("account-lijst");
-    const ontvangerKeuze = document.getElementById("ontvanger");
+
+    /* =========================================================
+       ACCOUNTS + ONTVANGERS
+       ========================================================= */
+
+    const accountLijst =
+      document.getElementById("account-lijst");
+
+
+    const ontvangerKeuze =
+      document.getElementById("ontvanger");
+
 
     spelers.forEach(function(speler) {
+
       accountLijst.innerHTML += `
+
         <div class="account-kaart">
-          <h2>${speler.naam}</h2>
-          <button class="wissel-knop" onclick="wisselAccount('${speler.naam}')">
+
+          <h2>
+            ${veiligeTekst(speler.naam)}
+          </h2>
+
+          <button
+            class="wissel-knop"
+            onclick="wisselAccount('${veiligeTekst(speler.naam)}')"
+          >
             Wissel naar dit account
           </button>
+
         </div>
+
       `;
 
+
       ontvangerKeuze.innerHTML += `
-        <option value="${speler.naam}">${speler.naam}</option>
+
+        <option value="${veiligeTekst(speler.naam)}">
+          ${veiligeTekst(speler.naam)}
+        </option>
+
       `;
+
     });
+
+
+    /* =========================================================
+       START
+       ========================================================= */
 
     updatePuntenDisplay();
 
+
+    /* =========================================================
+       BERICHTEN ELKE 5 SECONDEN VERNIEUWEN
+       ========================================================= */
+
     setInterval(function() {
+
       if (huidigAccount !== "") {
+
         toonBerichten();
+
       }
+
     }, 5000);
+
   </script>
+
 </body>
 </html>
