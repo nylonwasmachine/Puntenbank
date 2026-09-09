@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="nl">
 <head>
@@ -294,7 +293,7 @@
       </button>
 
 
-      <!-- AANKOOP -->
+      <!-- AANKOOP AANVRAGEN -->
 
       <div
         id="aankoop-vak"
@@ -322,6 +321,30 @@
         >
           Aankoop aanvragen
         </button>
+
+      </div>
+
+
+      <!-- OVERHEID AANKOOPVERZOEKEN -->
+
+      <div
+        id="beheer-aankopen"
+        class="verborgen"
+        style="margin-top: 40px;"
+      >
+
+        <h2>Aankoopverzoeken</h2>
+
+        <p>
+          Hier kan de Overheid aankoopaanvragen
+          accepteren of afwijzen.
+        </p>
+
+        <div
+          id="aankoop-verzoeken-lijst"
+        >
+          <p>Aankoopverzoeken laden...</p>
+        </div>
 
       </div>
 
@@ -474,7 +497,8 @@
 
       }
 
-      const getal = Number(tekst);
+      const getal =
+        Number(tekst);
 
       if (!Number.isFinite(getal)) {
         return NaN;
@@ -494,9 +518,11 @@
         return "Onbepaald";
       }
 
-      const negatief = getal < 0;
+      const negatief =
+        getal < 0;
 
-      const absoluut = Math.abs(getal);
+      const absoluut =
+        Math.abs(getal);
 
       let resultaat;
 
@@ -599,7 +625,9 @@
       } =
         await database
           .from("players")
-          .select("naam, plus, min")
+          .select(
+            "naam, plus, min"
+          )
           .order(
             "naam",
             {
@@ -622,7 +650,8 @@
         return;
       }
 
-      spelers = data || [];
+      spelers =
+        data || [];
 
       bouwLeaderboard();
 
@@ -645,37 +674,63 @@
     ) {
 
       document
-        .querySelectorAll(".tab-inhoud")
+        .querySelectorAll(
+          ".tab-inhoud"
+        )
         .forEach(
           function(tab) {
 
-            tab.classList.add("verborgen");
+            tab.classList.add(
+              "verborgen"
+            );
 
           }
         );
 
       document
-        .getElementById(tabNaam)
-        .classList.remove("verborgen");
+        .getElementById(
+          tabNaam
+        )
+        .classList.remove(
+          "verborgen"
+        );
 
       document
-        .querySelectorAll(".tab-knop")
+        .querySelectorAll(
+          ".tab-knop"
+        )
         .forEach(
           function(tabKnop) {
 
-            tabKnop.classList.remove("actief");
+            tabKnop.classList.remove(
+              "actief"
+            );
 
           }
         );
 
-      knop.classList.add("actief");
+      knop.classList.add(
+        "actief"
+      );
 
-      if (tabNaam === "berichten") {
+      if (
+        tabNaam ===
+        "berichten"
+      ) {
+
         toonBerichten();
+
+        toonAankoopVerzoeken();
+
       }
 
-      if (tabNaam === "leaderboard") {
+      if (
+        tabNaam ===
+        "leaderboard"
+      ) {
+
         toonBeheerLeaderboard();
+
       }
 
     }
@@ -697,7 +752,9 @@
           "punten-aantal"
         );
 
-      if (huidigAccount === "") {
+      if (
+        huidigAccount === ""
+      ) {
 
         status.textContent =
           "Niet ingelogd";
@@ -761,7 +818,9 @@
        LOGIN
        ===================================================== */
 
-    async function wisselAccount(naam) {
+    async function wisselAccount(
+      naam
+    ) {
 
       const wachtwoord =
         prompt(
@@ -770,11 +829,18 @@
           ":"
         );
 
-      if (wachtwoord === null) {
+      if (
+        wachtwoord ===
+        null
+      ) {
+
         return;
       }
 
-      if (wachtwoord === "") {
+      if (
+        wachtwoord ===
+        ""
+      ) {
 
         alert(
           "Vul een wachtwoord in."
@@ -785,12 +851,6 @@
 
       try {
 
-        /*
-         * BELANGRIJK:
-         * Dit gebruikt de Edge Function met de naam:
-         * login
-         */
-
         const {
           data,
           error
@@ -799,8 +859,11 @@
             "login",
             {
               body: {
-                naam: naam,
-                wachtwoord: wachtwoord
+                naam:
+                  naam,
+
+                wachtwoord:
+                  wachtwoord
               }
             }
           );
@@ -858,6 +921,8 @@
 
         toonBeheerLeaderboard();
 
+        toonAankoopVerzoeken();
+
         alert(
           "Je bent ingelogd als " +
           huidigAccount +
@@ -898,9 +963,11 @@
           "ontvanger"
         );
 
-      accountLijst.innerHTML = "";
+      accountLijst.innerHTML =
+        "";
 
-      ontvangerKeuze.innerHTML = "";
+      ontvangerKeuze.innerHTML =
+        "";
 
       spelers.forEach(
         function(speler) {
@@ -916,7 +983,9 @@
           accountKaart.innerHTML = `
 
             <h2>
-              ${veiligeTekst(speler.naam)}
+              ${veiligeTekst(
+                speler.naam
+              )}
             </h2>
 
             <button class="wissel-knop">
@@ -926,7 +995,9 @@
           `;
 
           accountKaart
-            .querySelector("button")
+            .querySelector(
+              "button"
+            )
             .addEventListener(
               "click",
               function() {
@@ -982,7 +1053,9 @@
       `;
 
       overheidKaart
-        .querySelector("button")
+        .querySelector(
+          "button"
+        )
         .addEventListener(
           "click",
           function() {
@@ -1028,7 +1101,8 @@
           "leaderboard-lijst"
         );
 
-      leaderboardLijst.innerHTML = "";
+      leaderboardLijst.innerHTML =
+        "";
 
       const gesorteerdeSpelers =
         [...spelers].sort(
@@ -1041,27 +1115,43 @@
               berekenTotaal(b);
 
             if (
-              !Number.isFinite(totaalA)
+              !Number.isFinite(
+                totaalA
+              )
             ) {
+
               return 1;
+
             }
 
             if (
-              !Number.isFinite(totaalB)
+              !Number.isFinite(
+                totaalB
+              )
             ) {
+
               return -1;
+
             }
 
-            return totaalB - totaalA;
+            return (
+              totaalB -
+              totaalA
+            );
 
           }
         );
 
       gesorteerdeSpelers.forEach(
-        function(speler, index) {
+        function(
+          speler,
+          index
+        ) {
 
           const totaal =
-            berekenTotaal(speler);
+            berekenTotaal(
+              speler
+            );
 
           const rij =
             document.createElement(
@@ -1094,7 +1184,9 @@
 
             <td>
               <strong>
-                ${formatPunten(totaal)}
+                ${formatPunten(
+                  totaal
+                )}
               </strong>
             </td>
 
@@ -1161,7 +1253,8 @@
         return;
       }
 
-      lijst.innerHTML = "";
+      lijst.innerHTML =
+        "";
 
       spelers.forEach(
         function(speler) {
@@ -1296,13 +1389,19 @@
       }
 
       const plusGetal =
-        parsePunten(nieuwePlus);
+        parsePunten(
+          nieuwePlus
+        );
 
       const minGetal =
-        parsePunten(nieuweMin);
+        parsePunten(
+          nieuweMin
+        );
 
       if (
-        !Number.isFinite(plusGetal)
+        !Number.isFinite(
+          plusGetal
+        )
       ) {
 
         alert(
@@ -1313,7 +1412,9 @@
       }
 
       if (
-        !Number.isFinite(minGetal)
+        !Number.isFinite(
+          minGetal
+        )
       ) {
 
         alert(
@@ -1328,7 +1429,11 @@
           "Vul het wachtwoord van Overheid in om op te slaan:"
         );
 
-      if (wachtwoord === null) {
+      if (
+        wachtwoord ===
+        null
+      ) {
+
         return;
       }
 
@@ -1342,12 +1447,6 @@
       }
 
       try {
-
-        /*
-         * BELANGRIJK:
-         * Dit gebruikt de Edge Function met de naam:
-         * beheer-leaderboard
-         */
 
         const {
           data,
@@ -1455,7 +1554,8 @@
           "item-lijst"
         );
 
-      itemLijst.innerHTML = "";
+      itemLijst.innerHTML =
+        "";
 
       items.forEach(
         function(item) {
@@ -1465,15 +1565,21 @@
             <article class="item-kaart">
 
               <h2>
-                ${veiligeTekst(item[0])}
+                ${veiligeTekst(
+                  item[0]
+                )}
               </h2>
 
               <p>
-                ${veiligeTekst(item[1])}
+                ${veiligeTekst(
+                  item[1]
+                )}
               </p>
 
               <p class="prijs">
-                ${veiligeTekst(item[2])}
+                ${veiligeTekst(
+                  item[2]
+                )}
                 punten
               </p>
 
@@ -1548,7 +1654,8 @@
           "aankoop-product"
         );
 
-      keuze.innerHTML = "";
+      keuze.innerHTML =
+        "";
 
       items.forEach(
         function(item) {
@@ -1578,12 +1685,14 @@
 
 
     /* =====================================================
-       AANKOOPAANVRAAG
+       AANKOOPAANVRAAG VERSTUREN
        ===================================================== */
 
     async function verstuurAankoopAanvraag() {
 
-      if (huidigAccount === "") {
+      if (
+        huidigAccount === ""
+      ) {
 
         alert(
           "Log eerst in via Accounts."
@@ -1635,31 +1744,133 @@
         return;
       }
 
-      const tekst =
-        huidigAccount +
-        " wil '" +
-        product +
-        "' kopen:";
+      const gekozenItem =
+        items.find(
+          function(item) {
 
+            return (
+              item[0] ===
+              product
+            );
+
+          }
+        );
+
+      if (!gekozenItem) {
+
+        alert(
+          "Dit product bestaat niet."
+        );
+
+        return;
+      }
+
+      const prijs =
+        Number(
+          gekozenItem[2]
+        );
+
+      /*
+       * Eerst controleren of de speler genoeg punten heeft.
+       */
+      const speler =
+        spelers.find(
+          function(persoon) {
+
+            return (
+              persoon.naam ===
+              huidigAccount
+            );
+
+          }
+        );
+
+      if (!speler) {
+
+        alert(
+          "Je account kon niet worden gevonden."
+        );
+
+        return;
+      }
+
+      const punten =
+        berekenTotaal(
+          speler
+        );
+
+      if (
+        !Number.isFinite(
+          punten
+        )
+      ) {
+
+        alert(
+          "Je punten konden niet worden gecontroleerd."
+        );
+
+        return;
+      }
+
+      if (
+        punten < prijs
+      ) {
+
+        alert(
+          "Je hebt niet genoeg punten voor dit product."
+        );
+
+        return;
+      }
+
+      /*
+       * Bevestiging
+       */
+      const bevestiging =
+        confirm(
+          "Wil je '" +
+          product +
+          "' aanvragen voor " +
+          prijs +
+          " punten?"
+        );
+
+      if (!bevestiging) {
+        return;
+      }
+
+      /*
+       * Aankoopverzoek opslaan
+       */
       const {
         error
       } =
         await database
-          .from("messages")
+          .from(
+            "purchase_requests"
+          )
           .insert({
 
-            sender:
+            speler_naam:
               huidigAccount,
 
-            recipient:
-              overheidNaam,
+            item_naam:
+              product,
 
-            content:
-              tekst
+            prijs:
+              prijs,
+
+            status:
+              "pending"
 
           });
 
       if (error) {
+
+        console.error(
+          "Aankoopverzoek:",
+          error
+        );
 
         alert(
           "De aankoopaanvraag kon niet worden verstuurd: " +
@@ -1668,6 +1879,29 @@
 
         return;
       }
+
+      /*
+       * Ook een normaal bericht naar Overheid.
+       */
+      await database
+        .from("messages")
+        .insert({
+
+          sender:
+            huidigAccount,
+
+          recipient:
+            overheidNaam,
+
+          content:
+            huidigAccount +
+            " heeft een aankoopaanvraag gedaan voor '" +
+            product +
+            "' (" +
+            prijs +
+            " punten)."
+
+        });
 
       alert(
         "Aankoopaanvraag voor " +
@@ -1681,12 +1915,431 @@
 
 
     /* =====================================================
+       OVERHEID AANKOOPVERZOEKEN ZICHTBAARHEID
+       ===================================================== */
+
+    function toonBeheerAankopen() {
+
+      const beheer =
+        document.getElementById(
+          "beheer-aankopen"
+        );
+
+      if (!beheer) {
+        return;
+      }
+
+      if (
+        huidigAccount !==
+        overheidNaam
+      ) {
+
+        beheer.classList.add(
+          "verborgen"
+        );
+
+        return;
+      }
+
+      beheer.classList.remove(
+        "verborgen"
+      );
+
+      toonAankoopVerzoeken();
+
+    }
+
+
+    /* =====================================================
+       AANKOOPVERZOEKEN LADEN
+       ===================================================== */
+
+    async function toonAankoopVerzoeken() {
+
+      const beheer =
+        document.getElementById(
+          "beheer-aankopen"
+        );
+
+      const lijst =
+        document.getElementById(
+          "aankoop-verzoeken-lijst"
+        );
+
+      if (
+        !beheer ||
+        !lijst
+      ) {
+
+        return;
+      }
+
+      if (
+        huidigAccount !==
+        overheidNaam
+      ) {
+
+        beheer.classList.add(
+          "verborgen"
+        );
+
+        return;
+      }
+
+      beheer.classList.remove(
+        "verborgen"
+      );
+
+      lijst.innerHTML =
+        "<p>Aankoopverzoeken laden...</p>";
+
+      const {
+        data,
+        error
+      } =
+        await database
+          .from(
+            "purchase_requests"
+          )
+          .select("*")
+          .order(
+            "created_at",
+            {
+              ascending: false
+            }
+          );
+
+      if (error) {
+
+        console.error(
+          "Aankoopverzoeken laden:",
+          error
+        );
+
+        lijst.innerHTML =
+          "<p>Fout bij laden: " +
+          veiligeTekst(
+            error.message
+          ) +
+          "</p>";
+
+        return;
+      }
+
+      if (
+        !data ||
+        data.length === 0
+      ) {
+
+        lijst.innerHTML =
+          "<p>Er zijn nog geen aankoopverzoeken.</p>";
+
+        return;
+      }
+
+      lijst.innerHTML =
+        "";
+
+      data.forEach(
+        function(verzoek) {
+
+          const vak =
+            document.createElement(
+              "div"
+            );
+
+          vak.className =
+            "bericht";
+
+          let statusTekst =
+            "In behandeling";
+
+          if (
+            verzoek.status ===
+            "accepted"
+          ) {
+
+            statusTekst =
+              "Geaccepteerd";
+
+          }
+
+          else if (
+            verzoek.status ===
+            "declined"
+          ) {
+
+            statusTekst =
+              "Afgewezen";
+
+          }
+
+          let knoppen =
+            "";
+
+          if (
+            verzoek.status ===
+            "pending"
+          ) {
+
+            knoppen = `
+
+              <br>
+
+              <button
+                class="verstuur-knop"
+                onclick="verwerkAankoop(
+                  '${veiligeTekst(
+                    verzoek.id
+                  )}',
+                  'accepted'
+                )"
+              >
+                ✅ Accepteren
+              </button>
+
+              <button
+                class="verstuur-knop"
+                onclick="verwerkAankoop(
+                  '${veiligeTekst(
+                    verzoek.id
+                  )}',
+                  'declined'
+                )"
+              >
+                ❌ Afwijzen
+              </button>
+
+            `;
+
+          }
+
+          vak.innerHTML = `
+
+            <strong>
+              Speler:
+            </strong>
+
+            ${veiligeTekst(
+              verzoek.speler_naam
+            )}
+
+            <br>
+
+            <strong>
+              Product:
+            </strong>
+
+            ${veiligeTekst(
+              verzoek.item_naam
+            )}
+
+            <br>
+
+            <strong>
+              Prijs:
+            </strong>
+
+            ${veiligeTekst(
+              verzoek.prijs
+            )}
+            punten
+
+            <br>
+
+            <strong>
+              Status:
+            </strong>
+
+            ${statusTekst}
+
+            ${knoppen}
+
+          `;
+
+          lijst.appendChild(
+            vak
+          );
+
+        }
+      );
+
+    }
+
+
+    /* =====================================================
+       AANKOOPVERZOEK ACCEPTEREN / AFWIJZEN
+       ===================================================== */
+
+    async function verwerkAankoop(
+      verzoekId,
+      actie
+    ) {
+
+      if (
+        huidigAccount !==
+        overheidNaam
+      ) {
+
+        alert(
+          "Alleen Overheid kan aankoopverzoeken verwerken."
+        );
+
+        return;
+      }
+
+      let bevestigingTekst;
+
+      if (
+        actie ===
+        "accepted"
+      ) {
+
+        bevestigingTekst =
+          "Weet je zeker dat je deze aankoop wilt accepteren? De punten worden dan afgetrokken.";
+
+      }
+
+      else {
+
+        bevestigingTekst =
+          "Weet je zeker dat je deze aankoop wilt afwijzen?";
+
+      }
+
+      const bevestiging =
+        confirm(
+          bevestigingTekst
+        );
+
+      if (!bevestiging) {
+        return;
+      }
+
+      const wachtwoord =
+        prompt(
+          "Vul het wachtwoord van Overheid in:"
+        );
+
+      if (
+        wachtwoord ===
+        null
+      ) {
+
+        return;
+      }
+
+      if (!wachtwoord) {
+
+        alert(
+          "Vul het wachtwoord in."
+        );
+
+        return;
+      }
+
+      try {
+
+        const {
+          data,
+          error
+        } =
+          await database.functions.invoke(
+            "beheer-aankopen",
+            {
+              body: {
+
+                wachtwoord:
+                  wachtwoord,
+
+                verzoek_id:
+                  verzoekId,
+
+                actie:
+                  actie
+
+              }
+            }
+          );
+
+        if (error) {
+
+          console.error(
+            "Aankoop Edge Function fout:",
+            error
+          );
+
+          alert(
+            "Verwerken mislukt: " +
+            error.message
+          );
+
+          return;
+        }
+
+        if (
+          !data ||
+          data.success !== true
+        ) {
+
+          alert(
+            data?.error ||
+            "Het aankoopverzoek kon niet worden verwerkt."
+          );
+
+          return;
+        }
+
+        if (
+          actie ===
+          "accepted"
+        ) {
+
+          alert(
+            "Aankoop geaccepteerd! De punten zijn afgetrokken."
+          );
+
+        }
+
+        else {
+
+          alert(
+            "Aankoop afgewezen."
+          );
+
+        }
+
+        await toonAankoopVerzoeken();
+
+        await laadSpelers();
+
+      }
+
+      catch (fout) {
+
+        console.error(
+          "Aankoop verwerken:",
+          fout
+        );
+
+        alert(
+          "Er ging iets mis bij het verwerken van de aankoop."
+        );
+
+      }
+
+    }
+
+
+    /* =====================================================
        BERICHT VERSTUREN
        ===================================================== */
 
     async function verstuurBericht() {
 
-      if (huidigAccount === "") {
+      if (
+        huidigAccount === ""
+      ) {
 
         alert(
           "Log eerst in via Accounts."
@@ -1717,7 +2370,9 @@
           .value
           .trim();
 
-      if (tekst === "") {
+      if (
+        tekst === ""
+      ) {
 
         alert(
           "Typ eerst een bericht."
@@ -1758,7 +2413,8 @@
         .getElementById(
           "bericht-tekst"
         )
-        .value = "";
+        .value =
+        "";
 
       toonBerichten();
 
@@ -1776,7 +2432,9 @@
           "bericht-lijst"
         );
 
-      if (huidigAccount === "") {
+      if (
+        huidigAccount === ""
+      ) {
 
         berichtLijst.innerHTML =
           "<p>Log in om berichten te zien.</p>";
@@ -1811,7 +2469,9 @@
 
         berichtLijst.innerHTML =
           "<p>Fout bij laden: " +
-          veiligeTekst(error.message) +
+          veiligeTekst(
+            error.message
+          ) +
           "</p>";
 
         return;
@@ -1828,7 +2488,8 @@
         return;
       }
 
-      berichtLijst.innerHTML = "";
+      berichtLijst.innerHTML =
+        "";
 
       data.forEach(
         function(bericht) {
@@ -1888,6 +2549,8 @@
 
       controleerAankoopOptie();
 
+      toonBeheerAankopen();
+
       await laadSpelers();
 
     }
@@ -1902,9 +2565,20 @@
     setInterval(
       function() {
 
-        if (huidigAccount !== "") {
+        if (
+          huidigAccount !== ""
+        ) {
 
           toonBerichten();
+
+          if (
+            huidigAccount ===
+            overheidNaam
+          ) {
+
+            toonAankoopVerzoeken();
+
+          }
 
         }
 
@@ -1918,7 +2592,9 @@
        ===================================================== */
 
     database
-      .channel("players-wijzigingen")
+      .channel(
+        "players-wijzigingen"
+      )
 
       .on(
         "postgres_changes",
@@ -1937,8 +2613,41 @@
 
       .subscribe();
 
+
+    /* =====================================================
+       REALTIME AANKOOPVERZOEKEN
+       ===================================================== */
+
+    database
+      .channel(
+        "purchase-request-wijzigingen"
+      )
+
+      .on(
+        "postgres_changes",
+        {
+          event: "*",
+          schema: "public",
+          table: "purchase_requests"
+        },
+
+        function() {
+
+          if (
+            huidigAccount ===
+            overheidNaam
+          ) {
+
+            toonAankoopVerzoeken();
+
+          }
+
+        }
+      )
+
+      .subscribe();
+
   </script>
 
 </body>
 </html>
-```
