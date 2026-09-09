@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="nl">
 <head>
   <meta charset="UTF-8">
@@ -9,6 +10,7 @@
   <link rel="stylesheet" href="style.css">
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 </head>
 
 <body>
@@ -22,344 +24,464 @@
 
   <nav>
 
-    <button
-      class="tab-knop actief"
-      onclick="openTab('punten', this)"
-    >
-      Punten
-    </button>
+```
+<button
+  class="tab-knop actief"
+  onclick="openTab('punten', this)"
+>
+  Punten
+</button>
 
-    <button
-      class="tab-knop"
-      onclick="openTab('leaderboard', this)"
-    >
-      Leaderboard
-    </button>
+<button
+  class="tab-knop"
+  onclick="openTab('leaderboard', this)"
+>
+  Leaderboard
+</button>
 
-    <button
-      class="tab-knop"
-      onclick="openTab('overheid', this)"
-    >
-      Overheid
-    </button>
+<button
+  class="tab-knop"
+  onclick="openTab('overheid', this)"
+>
+  Overheid
+</button>
 
-    <button
-      class="tab-knop"
-      onclick="openTab('itemshop', this)"
-    >
-      Itemshop
-    </button>
+<button
+  class="tab-knop"
+  onclick="openTab('itemshop', this)"
+>
+  Itemshop
+</button>
 
-    <button
-      class="tab-knop"
-      onclick="openTab('accounts', this)"
-    >
-      Accounts
-    </button>
+<button
+  class="tab-knop"
+  onclick="openTab('accounts', this)"
+>
+  Accounts
+</button>
 
-    <button
-      class="tab-knop"
-      onclick="openTab('berichten', this)"
-    >
-      Berichten
-    </button>
+<button
+  class="tab-knop"
+  onclick="openTab('berichten', this)"
+>
+  Berichten
+</button>
+```
 
   </nav>
 
   <main>
 
-    <!-- PUNTEN -->
+```
+<!-- PUNTEN -->
 
-    <section
-      id="punten"
-      class="tab-inhoud punten-pagina"
-    >
+<section
+  id="punten"
+  class="tab-inhoud punten-pagina"
+>
 
-      <h1>Dit is de Puntenbank</h1>
+  <h1>Dit is de Puntenbank</h1>
 
-      <p>
-        Welkom bij de Puntenbank.
-        Hier vind je informatie over punten.
-      </p>
+  <p>
+    Welkom bij de Puntenbank.
+    Hier vind je informatie over punten.
+  </p>
 
-      <p>
-        Je kunt punten verdienen door goed mee te doen
-        en opdrachten af te ronden.
-      </p>
+  <p>
+    Je kunt punten verdienen door goed mee te doen
+    en opdrachten af te ronden.
+  </p>
 
-      <p>
-        Je punten kunnen worden gebruikt voor beloningen.
-      </p>
+  <p>
+    Je punten kunnen worden gebruikt voor beloningen.
+  </p>
 
-    </section>
-
-
-    <!-- LEADERBOARD -->
-
-    <section
-      id="leaderboard"
-      class="tab-inhoud verborgen"
-    >
-
-      <h1>Leaderboard</h1>
-
-      <div class="tabel-vak">
-
-        <table>
-
-          <thead>
-            <tr>
-              <th>Positie</th>
-              <th>Naam</th>
-              <th>Pluspunten</th>
-              <th>Minpunten</th>
-              <th>Totaal</th>
-            </tr>
-          </thead>
-
-          <tbody id="leaderboard-lijst"></tbody>
-
-        </table>
-
-      </div>
+</section>
 
 
-      <!-- BEHEER -->
+<!-- LEADERBOARD -->
 
-      <div
-        id="beheer-leaderboard"
-        class="verborgen"
-        style="margin-top: 40px;"
-      >
+<section
+  id="leaderboard"
+  class="tab-inhoud verborgen"
+>
 
-        <h2>Leaderboard beheren</h2>
+  <h1>Leaderboard</h1>
 
-        <p>
-          Alleen het account Overheid kan spelers
-          en punten aanpassen.
-        </p>
+  <div class="tabel-vak">
 
-        <div class="tabel-vak">
+    <table>
 
-          <table>
+      <thead>
+        <tr>
+          <th>Positie</th>
+          <th>Naam</th>
+          <th>Pluspunten</th>
+          <th>Minpunten</th>
+          <th>Totaal</th>
+        </tr>
+      </thead>
 
-            <thead>
+      <tbody id="leaderboard-lijst"></tbody>
 
-              <tr>
-                <th>Naam</th>
-                <th>Pluspunten</th>
-                <th>Minpunten</th>
-                <th>Actie</th>
-              </tr>
+    </table>
 
-            </thead>
-
-            <tbody id="beheer-leaderboard-lijst"></tbody>
-
-          </table>
-
-        </div>
-
-      </div>
-
-    </section>
+  </div>
 
 
-    <!-- OVERHEID -->
+  <!-- BEHEER -->
 
-    <section
-      id="overheid"
-      class="tab-inhoud verborgen overheid-pagina"
-    >
+  <div
+    id="beheer-leaderboard"
+    class="verborgen"
+    style="margin-top: 40px;"
+  >
 
-      <h1>Overheid</h1>
+    <h2>Leaderboard beheren</h2>
 
-      <table class="overheid-tabel">
+    <p>
+      Alleen het account Overheid kan spelers
+      en punten aanpassen.
+    </p>
+
+    <div class="tabel-vak">
+
+      <table>
 
         <thead>
 
           <tr>
             <th>Naam</th>
-            <th>Aantal punten</th>
+            <th>Pluspunten</th>
+            <th>Minpunten</th>
+            <th>Actie</th>
           </tr>
 
         </thead>
 
-        <tbody>
-
-          <tr>
-            <td>Overheid</td>
-            <td>Onbeperkt</td>
-          </tr>
-
-        </tbody>
+        <tbody id="beheer-leaderboard-lijst"></tbody>
 
       </table>
 
-      <p class="overheid-tekst">
+    </div>
 
-        Dit is de overheid van de Puntenbank.
-        De overheid bepaalt hoeveel punten je krijgt
-        of verdient en heeft technisch gezien
-        onbeperkt veel punten.
+  </div>
 
-      </p>
-
-    </section>
+</section>
 
 
-    <!-- ITEMSHOP -->
+<!-- OVERHEID -->
 
-    <section
-      id="itemshop"
-      class="tab-inhoud verborgen"
+<section
+  id="overheid"
+  class="tab-inhoud verborgen overheid-pagina"
+>
+
+  <h1>Overheid</h1>
+
+  <table class="overheid-tabel">
+
+    <thead>
+
+      <tr>
+        <th>Naam</th>
+        <th>Aantal punten</th>
+      </tr>
+
+    </thead>
+
+    <tbody>
+
+      <tr>
+        <td>Overheid</td>
+        <td>Onbeperkt</td>
+      </tr>
+
+    </tbody>
+
+  </table>
+
+  <p class="overheid-tekst">
+
+    Dit is de overheid van de Puntenbank.
+    De overheid bepaalt hoeveel punten je krijgt
+    of verdient en heeft technisch gezien
+    onbeperkt veel punten.
+
+  </p>
+
+</section>
+
+
+<!-- ITEMSHOP -->
+
+<section
+  id="itemshop"
+  class="tab-inhoud verborgen"
+>
+
+  <h1>Itemshop</h1>
+
+  <div
+    id="item-lijst"
+    class="item-lijst"
+  ></div>
+
+</section>
+
+
+<!-- ACCOUNTS -->
+
+<section
+  id="accounts"
+  class="tab-inhoud verborgen"
+>
+
+  <h1>Accounts</h1>
+
+  <p>
+    Kies een account en vul het bijbehorende
+    wachtwoord in.
+  </p>
+
+  <div
+    id="account-lijst"
+    class="account-lijst"
+  >
+
+    <p>Accounts laden...</p>
+
+  </div>
+
+</section>
+
+
+<!-- BERICHTEN -->
+
+<section
+  id="berichten"
+  class="tab-inhoud verborgen berichten-pagina"
+>
+
+  <h1>Berichten</h1>
+
+  <p id="bericht-instructie">
+    Log eerst in via de tab Accounts.
+  </p>
+
+  <label for="ontvanger">
+    Stuur naar:
+  </label>
+
+  <select
+    id="ontvanger"
+    onchange="controleerAankoopOptie()"
+  ></select>
+
+  <br>
+  <br>
+
+  <label for="bericht-tekst">
+    Bericht:
+  </label>
+
+  <textarea
+    id="bericht-tekst"
+    placeholder="Typ hier je bericht..."
+  ></textarea>
+
+  <button
+    class="verstuur-knop"
+    onclick="verstuurBericht()"
+  >
+    Verstuur bericht
+  </button>
+
+
+  <!-- AANKOOP AANVRAGEN -->
+
+  <div
+    id="aankoop-vak"
+    style="display: none; margin-top: 30px;"
+  >
+
+    <h2>Aankoop aanvragen</h2>
+
+    <p>
+      Vraag via de overheid een product
+      uit de itemshop aan.
+    </p>
+
+    <label for="aankoop-product">
+      Product:
+    </label>
+
+    <select
+      id="aankoop-product"
+    ></select>
+
+    <button
+      class="verstuur-knop"
+      onclick="verstuurAankoopAanvraag()"
     >
+      Aankoop aanvragen
+    </button>
 
-      <h1>Itemshop</h1>
-
-      <div
-        id="item-lijst"
-        class="item-lijst"
-      ></div>
-
-    </section>
+  </div>
 
 
-    <!-- ACCOUNTS -->
+  <!-- OVERHEID AANKOOPVERZOEKEN -->
 
-    <section
-      id="accounts"
-      class="tab-inhoud verborgen"
+  <div
+    id="beheer-aankopen"
+    class="verborgen"
+    style="margin-top: 40px;"
+  >
+
+    <h2>Aankoopverzoeken</h2>
+
+    <p>
+      Hier kan de Overheid aankoopaanvragen
+      accepteren of afwijzen.
+    </p>
+
+    <div
+      id="aankoop-verzoeken-lijst"
     >
+      <p>Aankoopverzoeken laden...</p>
+    </div>
 
-      <h1>Accounts</h1>
-
-      <p>
-        Kies een account en vul het bijbehorende
-        wachtwoord in.
-      </p>
-
-      <div
-        id="account-lijst"
-        class="account-lijst"
-      >
-
-        <p>Accounts laden...</p>
-
-      </div>
-
-    </section>
+  </div>
 
 
-    <!-- BERICHTEN -->
+  <h2>Jouw berichten</h2>
 
-    <section
-      id="berichten"
-      class="tab-inhoud verborgen berichten-pagina"
-    >
+  <div
+    id="bericht-lijst"
+    class="bericht-lijst"
+  ></div>
 
-      <h1>Berichten</h1>
-
-      <p id="bericht-instructie">
-        Log eerst in via de tab Accounts.
-      </p>
-
-      <label for="ontvanger">
-        Stuur naar:
-      </label>
-
-      <select
-        id="ontvanger"
-        onchange="controleerAankoopOptie()"
-      ></select>
-
-      <br>
-      <br>
-
-      <label for="bericht-tekst">
-        Bericht:
-      </label>
-
-      <textarea
-        id="bericht-tekst"
-        placeholder="Typ hier je bericht..."
-      ></textarea>
-
-      <button
-        class="verstuur-knop"
-        onclick="verstuurBericht()"
-      >
-        Verstuur bericht
-      </button>
-
-
-      <!-- AANKOOP AANVRAGEN -->
-
-      <div
-        id="aankoop-vak"
-        style="display: none; margin-top: 30px;"
-      >
-
-        <h2>Aankoop aanvragen</h2>
-
-        <p>
-          Vraag via de overheid een product
-          uit de itemshop aan.
-        </p>
-
-        <label for="aankoop-product">
-          Product:
-        </label>
-
-        <select
-          id="aankoop-product"
-        ></select>
-
-        <button
-          class="verstuur-knop"
-          onclick="verstuurAankoopAanvraag()"
-        >
-          Aankoop aanvragen
-        </button>
-
-      </div>
-
-
-      <!-- OVERHEID AANKOOPVERZOEKEN -->
-
-      <div
-        id="beheer-aankopen"
-        class="verborgen"
-        style="margin-top: 40px;"
-      >
-
-        <h2>Aankoopverzoeken</h2>
-
-        <p>
-          Hier kan de Overheid aankoopaanvragen
-          accepteren of afwijzen.
-        </p>
-
-        <div
-          id="aankoop-verzoeken-lijst"
-        >
-          <p>Aankoopverzoeken laden...</p>
-        </div>
-
-      </div>
-
-
-      <h2>Jouw berichten</h2>
-
-      <div
-        id="bericht-lijst"
-        class="bericht-lijst"
-      ></div>
-
-    </section>
+</section>
+```
 
   </main>
 
+  <!-- =====================================================
+       TAB FUNCTIE
+       Deze staat bewust in een apart script zodat
+       de onclick-knoppen altijd bij openTab kunnen.
+       ===================================================== -->
+
+  <script>
+
+    window.openTab = function(
+      tabNaam,
+      knop
+    ) {
+
+      document
+        .querySelectorAll(
+          ".tab-inhoud"
+        )
+        .forEach(
+          function(tab) {
+
+            tab.classList.add(
+              "verborgen"
+            );
+
+          }
+        );
+
+      const gekozenTab =
+        document.getElementById(
+          tabNaam
+        );
+
+      if (!gekozenTab) {
+
+        console.error(
+          "Tab niet gevonden:",
+          tabNaam
+        );
+
+        return;
+      }
+
+      gekozenTab.classList.remove(
+        "verborgen"
+      );
+
+      document
+        .querySelectorAll(
+          ".tab-knop"
+        )
+        .forEach(
+          function(tabKnop) {
+
+            tabKnop.classList.remove(
+              "actief"
+            );
+
+          }
+        );
+
+      if (knop) {
+
+        knop.classList.add(
+          "actief"
+        );
+
+      }
+
+      if (
+        tabNaam ===
+        "berichten"
+      ) {
+
+        if (
+          typeof toonBerichten ===
+          "function"
+        ) {
+
+          toonBerichten();
+
+        }
+
+        if (
+          typeof toonAankoopVerzoeken ===
+          "function"
+        ) {
+
+          toonAankoopVerzoeken();
+
+        }
+
+      }
+
+      if (
+        tabNaam ===
+        "leaderboard"
+      ) {
+
+        if (
+          typeof toonBeheerLeaderboard ===
+          "function"
+        ) {
+
+          toonBeheerLeaderboard();
+
+        }
+
+      }
+
+    };
+
+  </script>
+
+  <!-- =====================================================
+       HOOFDSCRIPT
+       ===================================================== -->
 
   <script>
 
@@ -460,8 +582,13 @@
 
     function parsePunten(waarde) {
 
-      if (typeof waarde === "number") {
+      if (
+        typeof waarde ===
+        "number"
+      ) {
+
         return waarde;
+
       }
 
       let tekst =
@@ -469,11 +596,17 @@
           .trim()
           .replace(/,/g, ".");
 
-      if (tekst === "") {
+      if (
+        tekst ===
+        ""
+      ) {
+
         return NaN;
+
       }
 
-      let vermenigvuldiger = 1;
+      let vermenigvuldiger =
+        1;
 
       if (
         tekst
@@ -481,8 +614,14 @@
           .endsWith("K")
       ) {
 
-        vermenigvuldiger = 1000;
-        tekst = tekst.slice(0, -1);
+        vermenigvuldiger =
+          1000;
+
+        tekst =
+          tekst.slice(
+            0,
+            -1
+          );
 
       }
 
@@ -492,19 +631,37 @@
           .endsWith("M")
       ) {
 
-        vermenigvuldiger = 1000000;
-        tekst = tekst.slice(0, -1);
+        vermenigvuldiger =
+          1000000;
+
+        tekst =
+          tekst.slice(
+            0,
+            -1
+          );
 
       }
 
       const getal =
-        Number(tekst);
+        Number(
+          tekst
+        );
 
-      if (!Number.isFinite(getal)) {
+      if (
+        !Number.isFinite(
+          getal
+        )
+      ) {
+
         return NaN;
+
       }
 
-      return getal * vermenigvuldiger;
+      return (
+        getal *
+        vermenigvuldiger
+      );
+
     }
 
 
@@ -512,40 +669,64 @@
        PUNTEN FORMATTEREN
        ===================================================== */
 
-    function formatPunten(getal) {
+    function formatPunten(
+      getal
+    ) {
 
-      if (!Number.isFinite(getal)) {
+      if (
+        !Number.isFinite(
+          getal
+        )
+      ) {
+
         return "Onbepaald";
+
       }
 
       const negatief =
         getal < 0;
 
       const absoluut =
-        Math.abs(getal);
+        Math.abs(
+          getal
+        );
 
       let resultaat;
 
-      if (absoluut >= 1000000) {
+      if (
+        absoluut >=
+        1000000
+      ) {
 
         resultaat =
           (
-            absoluut / 1000000
+            absoluut /
+            1000000
           )
             .toFixed(2)
-            .replace(/\.?0+$/, "") +
+            .replace(
+              /\.?0+$/,
+              ""
+            ) +
           "M";
 
       }
 
-      else if (absoluut >= 1000) {
+      else if (
+        absoluut >=
+        1000
+      ) {
 
         resultaat =
           (
-            absoluut / 1000
+            absoluut /
+            1000
           )
             .toFixed(2)
-            .replace(/\.?0+$/, "") +
+            .replace(
+              /\.?0+$/,
+              ""
+            ) +
           "K";
 
       }
@@ -555,13 +736,17 @@
         resultaat =
           absoluut
             .toFixed(2)
-            .replace(/\.?0+$/, "");
+            .replace(
+              /\.?0+$/,
+              ""
+            );
 
       }
 
       return negatief
         ? "-" + resultaat
         : resultaat;
+
     }
 
 
@@ -569,27 +754,40 @@
        TOTAAL
        ===================================================== */
 
-    function berekenTotaal(speler) {
+    function berekenTotaal(
+      speler
+    ) {
 
       const pluspunten =
-        parsePunten(speler.plus);
+        parsePunten(
+          speler.plus
+        );
 
       const minpunten =
-        parsePunten(speler.min);
+        parsePunten(
+          speler.min
+        );
 
       if (
-        Number.isFinite(pluspunten) &&
-        Number.isFinite(minpunten)
+        Number.isFinite(
+          pluspunten
+        ) &&
+        Number.isFinite(
+          minpunten
+        )
       ) {
 
         return (
           pluspunten -
-          Math.abs(minpunten)
+          Math.abs(
+            minpunten
+          )
         );
 
       }
 
       return NaN;
+
     }
 
 
@@ -597,19 +795,39 @@
        VEILIGE TEKST
        ===================================================== */
 
-    function veiligeTekst(tekst) {
+    function veiligeTekst(
+      tekst
+    ) {
 
-      return String(tekst)
+      return String(
+        tekst
+      )
 
-        .replace(/&/g, "&amp;")
+        .replace(
+          /&/g,
+          "&amp;"
+        )
 
-        .replace(/</g, "&lt;")
+        .replace(
+          /</g,
+          "&lt;"
+        )
 
-        .replace(/>/g, "&gt;")
+        .replace(
+          />/g,
+          "&gt;"
+        )
 
-        .replace(/"/g, "&quot;")
+        .replace(
+          /"/g,
+          "&quot;"
+        )
 
-        .replace(/'/g, "&#039;");
+        .replace(
+          /'/g,
+          "&#039;"
+        );
+
     }
 
 
@@ -624,7 +842,9 @@
         error
       } =
         await database
-          .from("players")
+          .from(
+            "players"
+          )
           .select(
             "naam, plus, min"
           )
@@ -648,6 +868,7 @@
         );
 
         return;
+
       }
 
       spelers =
@@ -660,78 +881,6 @@
       toonBeheerLeaderboard();
 
       updatePuntenDisplay();
-
-    }
-
-
-    /* =====================================================
-       TABBLADEN
-       ===================================================== */
-
-    function openTab(
-      tabNaam,
-      knop
-    ) {
-
-      document
-        .querySelectorAll(
-          ".tab-inhoud"
-        )
-        .forEach(
-          function(tab) {
-
-            tab.classList.add(
-              "verborgen"
-            );
-
-          }
-        );
-
-      document
-        .getElementById(
-          tabNaam
-        )
-        .classList.remove(
-          "verborgen"
-        );
-
-      document
-        .querySelectorAll(
-          ".tab-knop"
-        )
-        .forEach(
-          function(tabKnop) {
-
-            tabKnop.classList.remove(
-              "actief"
-            );
-
-          }
-        );
-
-      knop.classList.add(
-        "actief"
-      );
-
-      if (
-        tabNaam ===
-        "berichten"
-      ) {
-
-        toonBerichten();
-
-        toonAankoopVerzoeken();
-
-      }
-
-      if (
-        tabNaam ===
-        "leaderboard"
-      ) {
-
-        toonBeheerLeaderboard();
-
-      }
 
     }
 
@@ -753,7 +902,8 @@
         );
 
       if (
-        huidigAccount === ""
+        huidigAccount ===
+        ""
       ) {
 
         status.textContent =
@@ -763,6 +913,7 @@
           "0";
 
         return;
+
       }
 
       if (
@@ -777,11 +928,14 @@
           "∞";
 
         return;
+
       }
 
       const speler =
         spelers.find(
-          function(persoon) {
+          function(
+            persoon
+          ) {
 
             return (
               persoon.naam ===
@@ -800,6 +954,7 @@
           "0";
 
         return;
+
       }
 
       status.textContent =
@@ -808,7 +963,9 @@
 
       punten.textContent =
         formatPunten(
-          berekenTotaal(speler)
+          berekenTotaal(
+            speler
+          )
         );
 
     }
@@ -835,6 +992,7 @@
       ) {
 
         return;
+
       }
 
       if (
@@ -847,6 +1005,7 @@
         );
 
         return;
+
       }
 
       try {
@@ -886,11 +1045,13 @@
           );
 
           return;
+
         }
 
         if (
           !data ||
-          data.success !== true
+          data.success !==
+          true
         ) {
 
           alert(
@@ -899,6 +1060,7 @@
           );
 
           return;
+
         }
 
         huidigAccount =
@@ -970,7 +1132,9 @@
         "";
 
       spelers.forEach(
-        function(speler) {
+        function(
+          speler
+        ) {
 
           const accountKaart =
             document.createElement(
@@ -1106,13 +1270,20 @@
 
       const gesorteerdeSpelers =
         [...spelers].sort(
-          function(a, b) {
+          function(
+            a,
+            b
+          ) {
 
             const totaalA =
-              berekenTotaal(a);
+              berekenTotaal(
+                a
+              );
 
             const totaalB =
-              berekenTotaal(b);
+              berekenTotaal(
+                b
+              );
 
             if (
               !Number.isFinite(
@@ -1214,7 +1385,9 @@
         );
 
       if (!beheer) {
+
         return;
+
       }
 
       if (
@@ -1227,6 +1400,7 @@
         );
 
         return;
+
       }
 
       beheer.classList.remove(
@@ -1250,14 +1424,18 @@
         );
 
       if (!lijst) {
+
         return;
+
       }
 
       lijst.innerHTML =
         "";
 
       spelers.forEach(
-        function(speler) {
+        function(
+          speler
+        ) {
 
           const rij =
             document.createElement(
@@ -1377,6 +1555,7 @@
         );
 
         return;
+
       }
 
       if (!nieuweNaam) {
@@ -1386,6 +1565,7 @@
         );
 
         return;
+
       }
 
       const plusGetal =
@@ -1409,6 +1589,7 @@
         );
 
         return;
+
       }
 
       if (
@@ -1422,6 +1603,7 @@
         );
 
         return;
+
       }
 
       const wachtwoord =
@@ -1435,6 +1617,7 @@
       ) {
 
         return;
+
       }
 
       if (!wachtwoord) {
@@ -1444,6 +1627,7 @@
         );
 
         return;
+
       }
 
       try {
@@ -1489,11 +1673,13 @@
           );
 
           return;
+
         }
 
         if (
           !data ||
-          data.success !== true
+          data.success !==
+          true
         ) {
 
           alert(
@@ -1502,6 +1688,7 @@
           );
 
           return;
+
         }
 
         alert(
@@ -1558,7 +1745,9 @@
         "";
 
       items.forEach(
-        function(item) {
+        function(
+          item
+        ) {
 
           itemLijst.innerHTML += `
 
@@ -1658,7 +1847,9 @@
         "";
 
       items.forEach(
-        function(item) {
+        function(
+          item
+        ) {
 
           const optie =
             document.createElement(
@@ -1691,7 +1882,8 @@
     async function verstuurAankoopAanvraag() {
 
       if (
-        huidigAccount === ""
+        huidigAccount ===
+        ""
       ) {
 
         alert(
@@ -1699,6 +1891,7 @@
         );
 
         return;
+
       }
 
       if (
@@ -1711,6 +1904,7 @@
         );
 
         return;
+
       }
 
       const ontvanger =
@@ -1728,6 +1922,7 @@
         );
 
         return;
+
       }
 
       const product =
@@ -1742,11 +1937,14 @@
         );
 
         return;
+
       }
 
       const gekozenItem =
         items.find(
-          function(item) {
+          function(
+            item
+          ) {
 
             return (
               item[0] ===
@@ -1763,19 +1961,37 @@
         );
 
         return;
+
       }
 
-const prijs =
-  parsePunten(
-    gekozenItem[2]
-  );
+      const prijs =
+        parsePunten(
+          gekozenItem[2]
+        );
+
+      if (
+        !Number.isFinite(
+          prijs
+        )
+      ) {
+
+        alert(
+          "De prijs van dit product is ongeldig."
+        );
+
+        return;
+
+      }
 
       /*
        * Eerst controleren of de speler genoeg punten heeft.
        */
+
       const speler =
         spelers.find(
-          function(persoon) {
+          function(
+            persoon
+          ) {
 
             return (
               persoon.naam ===
@@ -1792,6 +2008,7 @@ const prijs =
         );
 
         return;
+
       }
 
       const punten =
@@ -1810,6 +2027,7 @@ const prijs =
         );
 
         return;
+
       }
 
       if (
@@ -1821,27 +2039,34 @@ const prijs =
         );
 
         return;
+
       }
 
       /*
        * Bevestiging
        */
+
       const bevestiging =
         confirm(
           "Wil je '" +
           product +
           "' aanvragen voor " +
-          prijs +
+          formatPunten(
+            prijs
+          ) +
           " punten?"
         );
 
       if (!bevestiging) {
+
         return;
+
       }
 
       /*
        * Aankoopverzoek opslaan
        */
+
       const {
         error
       } =
@@ -1878,13 +2103,17 @@ const prijs =
         );
 
         return;
+
       }
 
       /*
        * Ook een normaal bericht naar Overheid.
        */
+
       await database
-        .from("messages")
+        .from(
+          "messages"
+        )
         .insert({
 
           sender:
@@ -1898,7 +2127,9 @@ const prijs =
             " heeft een aankoopaanvraag gedaan voor '" +
             product +
             "' (" +
-            prijs +
+            formatPunten(
+              prijs
+            ) +
             " punten)."
 
         });
@@ -1926,7 +2157,9 @@ const prijs =
         );
 
       if (!beheer) {
+
         return;
+
       }
 
       if (
@@ -1939,6 +2172,7 @@ const prijs =
         );
 
         return;
+
       }
 
       beheer.classList.remove(
@@ -1972,6 +2206,7 @@ const prijs =
       ) {
 
         return;
+
       }
 
       if (
@@ -1984,6 +2219,7 @@ const prijs =
         );
 
         return;
+
       }
 
       beheer.classList.remove(
@@ -2024,24 +2260,29 @@ const prijs =
           "</p>";
 
         return;
+
       }
 
       if (
         !data ||
-        data.length === 0
+        data.length ===
+        0
       ) {
 
         lijst.innerHTML =
           "<p>Er zijn nog geen aankoopverzoeken.</p>";
 
         return;
+
       }
 
       lijst.innerHTML =
         "";
 
       data.forEach(
-        function(verzoek) {
+        function(
+          verzoek
+        ) {
 
           const vak =
             document.createElement(
@@ -2186,6 +2427,7 @@ const prijs =
         );
 
         return;
+
       }
 
       let bevestigingTekst;
@@ -2213,7 +2455,9 @@ const prijs =
         );
 
       if (!bevestiging) {
+
         return;
+
       }
 
       const wachtwoord =
@@ -2227,6 +2471,7 @@ const prijs =
       ) {
 
         return;
+
       }
 
       if (!wachtwoord) {
@@ -2236,6 +2481,7 @@ const prijs =
         );
 
         return;
+
       }
 
       try {
@@ -2275,11 +2521,13 @@ const prijs =
           );
 
           return;
+
         }
 
         if (
           !data ||
-          data.success !== true
+          data.success !==
+          true
         ) {
 
           alert(
@@ -2288,6 +2536,7 @@ const prijs =
           );
 
           return;
+
         }
 
         if (
@@ -2338,7 +2587,8 @@ const prijs =
     async function verstuurBericht() {
 
       if (
-        huidigAccount === ""
+        huidigAccount ===
+        ""
       ) {
 
         alert(
@@ -2346,6 +2596,7 @@ const prijs =
         );
 
         return;
+
       }
 
       const ontvanger =
@@ -2360,6 +2611,7 @@ const prijs =
         );
 
         return;
+
       }
 
       const tekst =
@@ -2371,7 +2623,8 @@ const prijs =
           .trim();
 
       if (
-        tekst === ""
+        tekst ===
+        ""
       ) {
 
         alert(
@@ -2379,13 +2632,16 @@ const prijs =
         );
 
         return;
+
       }
 
       const {
         error
       } =
         await database
-          .from("messages")
+          .from(
+            "messages"
+          )
           .insert({
 
             sender:
@@ -2407,6 +2663,7 @@ const prijs =
         );
 
         return;
+
       }
 
       document
@@ -2433,13 +2690,15 @@ const prijs =
         );
 
       if (
-        huidigAccount === ""
+        huidigAccount ===
+        ""
       ) {
 
         berichtLijst.innerHTML =
           "<p>Log in om berichten te zien.</p>";
 
         return;
+
       }
 
       berichtLijst.innerHTML =
@@ -2450,7 +2709,9 @@ const prijs =
         error
       } =
         await database
-          .from("messages")
+          .from(
+            "messages"
+          )
           .select("*")
           .or(
             "sender.eq." +
@@ -2475,24 +2736,29 @@ const prijs =
           "</p>";
 
         return;
+
       }
 
       if (
         !data ||
-        data.length === 0
+        data.length ===
+        0
       ) {
 
         berichtLijst.innerHTML =
           "<p>Nog geen berichten.</p>";
 
         return;
+
       }
 
       berichtLijst.innerHTML =
         "";
 
       data.forEach(
-        function(bericht) {
+        function(
+          bericht
+        ) {
 
           const berichtVak =
             document.createElement(
@@ -2566,7 +2832,8 @@ const prijs =
       function() {
 
         if (
-          huidigAccount !== ""
+          huidigAccount !==
+          ""
         ) {
 
           toonBerichten();
