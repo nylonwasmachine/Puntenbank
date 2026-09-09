@@ -22,47 +22,57 @@
     <strong id="punten-aantal">0</strong>
   </div>
 
+  <!-- =====================================================
+       NAVIGATIE
+       ===================================================== -->
+
   <nav>
 
 ```
 <button
+  type="button"
   class="tab-knop actief"
-  onclick="openTab('punten', this)"
+  data-tab="punten"
 >
   Punten
 </button>
 
 <button
+  type="button"
   class="tab-knop"
-  onclick="openTab('leaderboard', this)"
+  data-tab="leaderboard"
 >
   Leaderboard
 </button>
 
 <button
+  type="button"
   class="tab-knop"
-  onclick="openTab('overheid', this)"
+  data-tab="overheid"
 >
   Overheid
 </button>
 
 <button
+  type="button"
   class="tab-knop"
-  onclick="openTab('itemshop', this)"
+  data-tab="itemshop"
 >
   Itemshop
 </button>
 
 <button
+  type="button"
   class="tab-knop"
-  onclick="openTab('accounts', this)"
+  data-tab="accounts"
 >
   Accounts
 </button>
 
 <button
+  type="button"
   class="tab-knop"
-  onclick="openTab('berichten', this)"
+  data-tab="berichten"
 >
   Berichten
 </button>
@@ -73,7 +83,9 @@
   <main>
 
 ```
-<!-- PUNTEN -->
+<!-- =====================================================
+     PUNTEN
+     ===================================================== -->
 
 <section
   id="punten"
@@ -99,7 +111,9 @@
 </section>
 
 
-<!-- LEADERBOARD -->
+<!-- =====================================================
+     LEADERBOARD
+     ===================================================== -->
 
 <section
   id="leaderboard"
@@ -129,7 +143,9 @@
   </div>
 
 
-  <!-- BEHEER -->
+  <!-- ===================================================
+       LEADERBOARD BEHEER
+       =================================================== -->
 
   <div
     id="beheer-leaderboard"
@@ -149,14 +165,12 @@
       <table>
 
         <thead>
-
           <tr>
             <th>Naam</th>
             <th>Pluspunten</th>
             <th>Minpunten</th>
             <th>Actie</th>
           </tr>
-
         </thead>
 
         <tbody id="beheer-leaderboard-lijst"></tbody>
@@ -170,7 +184,9 @@
 </section>
 
 
-<!-- OVERHEID -->
+<!-- =====================================================
+     OVERHEID
+     ===================================================== -->
 
 <section
   id="overheid"
@@ -182,12 +198,10 @@
   <table class="overheid-tabel">
 
     <thead>
-
       <tr>
         <th>Naam</th>
         <th>Aantal punten</th>
       </tr>
-
     </thead>
 
     <tbody>
@@ -213,7 +227,9 @@
 </section>
 
 
-<!-- ITEMSHOP -->
+<!-- =====================================================
+     ITEMSHOP
+     ===================================================== -->
 
 <section
   id="itemshop"
@@ -230,7 +246,9 @@
 </section>
 
 
-<!-- ACCOUNTS -->
+<!-- =====================================================
+     ACCOUNTS
+     ===================================================== -->
 
 <section
   id="accounts"
@@ -256,7 +274,9 @@
 </section>
 
 
-<!-- BERICHTEN -->
+<!-- =====================================================
+     BERICHTEN
+     ===================================================== -->
 
 <section
   id="berichten"
@@ -275,7 +295,6 @@
 
   <select
     id="ontvanger"
-    onchange="controleerAankoopOptie()"
   ></select>
 
   <br>
@@ -298,7 +317,9 @@
   </button>
 
 
-  <!-- AANKOOP AANVRAGEN -->
+  <!-- ===================================================
+       AANKOOP AANVRAGEN
+       =================================================== -->
 
   <div
     id="aankoop-vak"
@@ -330,7 +351,9 @@
   </div>
 
 
-  <!-- OVERHEID AANKOOPVERZOEKEN -->
+  <!-- ===================================================
+       OVERHEID AANKOOPVERZOEKEN
+       =================================================== -->
 
   <div
     id="beheer-aankopen"
@@ -345,9 +368,7 @@
       accepteren of afwijzen.
     </p>
 
-    <div
-      id="aankoop-verzoeken-lijst"
-    >
+    <div id="aankoop-verzoeken-lijst">
       <p>Aankoopverzoeken laden...</p>
     </div>
 
@@ -367,115 +388,128 @@
   </main>
 
   <!-- =====================================================
-       TAB FUNCTIE
-       Deze staat bewust in een apart script zodat
-       de onclick-knoppen altijd bij openTab kunnen.
+       TAB NAVIGATIE
        ===================================================== -->
 
   <script>
 
-    window.openTab = function(
-      tabNaam,
-      knop
-    ) {
+    document.addEventListener(
+      "DOMContentLoaded",
+      function () {
 
-      document
-        .querySelectorAll(
-          ".tab-inhoud"
-        )
-        .forEach(
-          function(tab) {
+        const tabKnoppen =
+          document.querySelectorAll(
+            ".tab-knop"
+          );
 
-            tab.classList.add(
-              "verborgen"
+        const tabInhoud =
+          document.querySelectorAll(
+            ".tab-inhoud"
+          );
+
+        tabKnoppen.forEach(
+          function (knop) {
+
+            knop.addEventListener(
+              "click",
+              function () {
+
+                const tabNaam =
+                  knop.dataset.tab;
+
+                tabInhoud.forEach(
+                  function (tab) {
+
+                    tab.classList.add(
+                      "verborgen"
+                    );
+
+                  }
+                );
+
+                const gekozenTab =
+                  document.getElementById(
+                    tabNaam
+                  );
+
+                if (!gekozenTab) {
+
+                  console.error(
+                    "Tab niet gevonden:",
+                    tabNaam
+                  );
+
+                  return;
+
+                }
+
+                gekozenTab.classList.remove(
+                  "verborgen"
+                );
+
+                tabKnoppen.forEach(
+                  function (andereKnop) {
+
+                    andereKnop.classList.remove(
+                      "actief"
+                    );
+
+                  }
+                );
+
+                knop.classList.add(
+                  "actief"
+                );
+
+                if (
+                  tabNaam ===
+                  "berichten"
+                ) {
+
+                  if (
+                    typeof toonBerichten ===
+                    "function"
+                  ) {
+
+                    toonBerichten();
+
+                  }
+
+                  if (
+                    typeof toonAankoopVerzoeken ===
+                    "function"
+                  ) {
+
+                    toonAankoopVerzoeken();
+
+                  }
+
+                }
+
+                if (
+                  tabNaam ===
+                  "leaderboard"
+                ) {
+
+                  if (
+                    typeof toonBeheerLeaderboard ===
+                    "function"
+                  ) {
+
+                    toonBeheerLeaderboard();
+
+                  }
+
+                }
+
+              }
             );
 
           }
         );
 
-      const gekozenTab =
-        document.getElementById(
-          tabNaam
-        );
-
-      if (!gekozenTab) {
-
-        console.error(
-          "Tab niet gevonden:",
-          tabNaam
-        );
-
-        return;
       }
-
-      gekozenTab.classList.remove(
-        "verborgen"
-      );
-
-      document
-        .querySelectorAll(
-          ".tab-knop"
-        )
-        .forEach(
-          function(tabKnop) {
-
-            tabKnop.classList.remove(
-              "actief"
-            );
-
-          }
-        );
-
-      if (knop) {
-
-        knop.classList.add(
-          "actief"
-        );
-
-      }
-
-      if (
-        tabNaam ===
-        "berichten"
-      ) {
-
-        if (
-          typeof toonBerichten ===
-          "function"
-        ) {
-
-          toonBerichten();
-
-        }
-
-        if (
-          typeof toonAankoopVerzoeken ===
-          "function"
-        ) {
-
-          toonAankoopVerzoeken();
-
-        }
-
-      }
-
-      if (
-        tabNaam ===
-        "leaderboard"
-      ) {
-
-        if (
-          typeof toonBeheerLeaderboard ===
-          "function"
-        ) {
-
-          toonBeheerLeaderboard();
-
-        }
-
-      }
-
-    };
+    );
 
   </script>
 
@@ -515,6 +549,13 @@
 
     /* =====================================================
        ITEMSHOP
+       
+       Hier kun je de items aanpassen:
+       
+       [naam, beschrijving, prijs]
+       
+       Voorbeeld:
+       ["Basketbal", "Een basketbal.", "2M"]
        ===================================================== */
 
     const items = [
@@ -580,7 +621,9 @@
        PUNTEN PARSEN
        ===================================================== */
 
-    function parsePunten(waarde) {
+    function parsePunten(
+      waarde
+    ) {
 
       if (
         typeof waarde ===
@@ -592,9 +635,14 @@
       }
 
       let tekst =
-        String(waarde)
+        String(
+          waarde
+        )
           .trim()
-          .replace(/,/g, ".");
+          .replace(
+            /,/g,
+            "."
+          );
 
       if (
         tekst ===
@@ -751,7 +799,7 @@
 
 
     /* =====================================================
-       TOTAAL
+       TOTAAL BEREKENEN
        ===================================================== */
 
     function berekenTotaal(
@@ -802,27 +850,22 @@
       return String(
         tekst
       )
-
         .replace(
           /&/g,
           "&amp;"
         )
-
         .replace(
           /</g,
           "&lt;"
         )
-
         .replace(
           />/g,
           "&gt;"
         )
-
         .replace(
           /"/g,
           "&quot;"
         )
-
         .replace(
           /'/g,
           "&#039;"
@@ -933,7 +976,7 @@
 
       const speler =
         spelers.find(
-          function(
+          function (
             persoon
           ) {
 
@@ -1110,7 +1153,7 @@
 
 
     /* =====================================================
-       ACCOUNTS
+       ACCOUNTS BOUWEN
        ===================================================== */
 
     function bouwAccounts() {
@@ -1132,7 +1175,7 @@
         "";
 
       spelers.forEach(
-        function(
+        function (
           speler
         ) {
 
@@ -1164,7 +1207,7 @@
             )
             .addEventListener(
               "click",
-              function() {
+              function () {
 
                 wisselAccount(
                   speler.naam
@@ -1196,7 +1239,7 @@
       );
 
 
-      /* OVERHEID */
+      /* OVERHEID ACCOUNT */
 
       const overheidKaart =
         document.createElement(
@@ -1222,7 +1265,7 @@
         )
         .addEventListener(
           "click",
-          function() {
+          function () {
 
             wisselAccount(
               overheidNaam
@@ -1270,7 +1313,7 @@
 
       const gesorteerdeSpelers =
         [...spelers].sort(
-          function(
+          function (
             a,
             b
           ) {
@@ -1314,7 +1357,7 @@
         );
 
       gesorteerdeSpelers.forEach(
-        function(
+        function (
           speler,
           index
         ) {
@@ -1374,7 +1417,7 @@
 
 
     /* =====================================================
-       BEHEER ZICHTBAARHEID
+       BEHEER LEADERBOARD ZICHTBAARHEID
        ===================================================== */
 
     function toonBeheerLeaderboard() {
@@ -1433,7 +1476,7 @@
         "";
 
       spelers.forEach(
-        function(
+        function (
           speler
         ) {
 
@@ -1512,7 +1555,7 @@
 
           knop.addEventListener(
             "click",
-            function() {
+            function () {
 
               slaSpelerOp(
                 speler,
@@ -1745,7 +1788,7 @@
         "";
 
       items.forEach(
-        function(
+        function (
           item
         ) {
 
@@ -1790,7 +1833,7 @@
 
 
     /* =====================================================
-       AANKOOP OPTIE
+       AANKOOP OPTIE CONTROLEREN
        ===================================================== */
 
     function controleerAankoopOptie() {
@@ -1833,7 +1876,7 @@
 
 
     /* =====================================================
-       AANKOOP PRODUCTEN
+       AANKOOP PRODUCTEN VULLEN
        ===================================================== */
 
     function vulAankoopProducten() {
@@ -1847,7 +1890,7 @@
         "";
 
       items.forEach(
-        function(
+        function (
           item
         ) {
 
@@ -1942,7 +1985,7 @@
 
       const gekozenItem =
         items.find(
-          function(
+          function (
             item
           ) {
 
@@ -1983,13 +2026,12 @@
 
       }
 
-      /*
-       * Eerst controleren of de speler genoeg punten heeft.
-       */
+
+      /* Genoeg punten controleren */
 
       const speler =
         spelers.find(
-          function(
+          function (
             persoon
           ) {
 
@@ -2042,9 +2084,8 @@
 
       }
 
-      /*
-       * Bevestiging
-       */
+
+      /* Bevestiging */
 
       const bevestiging =
         confirm(
@@ -2063,9 +2104,8 @@
 
       }
 
-      /*
-       * Aankoopverzoek opslaan
-       */
+
+      /* Aankoopverzoek opslaan */
 
       const {
         error
@@ -2106,9 +2146,8 @@
 
       }
 
-      /*
-       * Ook een normaal bericht naar Overheid.
-       */
+
+      /* Bericht naar Overheid */
 
       await database
         .from(
@@ -2146,7 +2185,7 @@
 
 
     /* =====================================================
-       OVERHEID AANKOOPVERZOEKEN ZICHTBAARHEID
+       OVERHEID AANKOPEN ZICHTBAARHEID
        ===================================================== */
 
     function toonBeheerAankopen() {
@@ -2280,7 +2319,7 @@
         "";
 
       data.forEach(
-        function(
+        function (
           verzoek
         ) {
 
@@ -2315,6 +2354,11 @@
 
           }
 
+          const veiligeId =
+            veiligeTekst(
+              verzoek.id
+            );
+
           let knoppen =
             "";
 
@@ -2328,25 +2372,15 @@
               <br>
 
               <button
-                class="verstuur-knop"
-                onclick="verwerkAankoop(
-                  '${veiligeTekst(
-                    verzoek.id
-                  )}',
-                  'accepted'
-                )"
+                class="verstuur-knop aankoop-accepteer"
+                data-verzoek-id="${veiligeId}"
               >
                 ✅ Accepteren
               </button>
 
               <button
-                class="verstuur-knop"
-                onclick="verwerkAankoop(
-                  '${veiligeTekst(
-                    verzoek.id
-                  )}',
-                  'declined'
-                )"
+                class="verstuur-knop aankoop-afwijzen"
+                data-verzoek-id="${veiligeId}"
               >
                 ❌ Afwijzen
               </button>
@@ -2398,6 +2432,49 @@
 
           `;
 
+
+          const accepteerKnop =
+            vak.querySelector(
+              ".aankoop-accepteer"
+            );
+
+          const afwijzenKnop =
+            vak.querySelector(
+              ".aankoop-afwijzen"
+            );
+
+          if (accepteerKnop) {
+
+            accepteerKnop.addEventListener(
+              "click",
+              function () {
+
+                verwerkAankoop(
+                  verzoek.id,
+                  "accepted"
+                );
+
+              }
+            );
+
+          }
+
+          if (afwijzenKnop) {
+
+            afwijzenKnop.addEventListener(
+              "click",
+              function () {
+
+                verwerkAankoop(
+                  verzoek.id,
+                  "declined"
+                );
+
+              }
+            );
+
+          }
+
           lijst.appendChild(
             vak
           );
@@ -2409,7 +2486,7 @@
 
 
     /* =====================================================
-       AANKOOPVERZOEK ACCEPTEREN / AFWIJZEN
+       AANKOOP ACCEPTEREN / AFWIJZEN
        ===================================================== */
 
     async function verwerkAankoop(
@@ -2756,7 +2833,7 @@
         "";
 
       data.forEach(
-        function(
+        function (
           bericht
         ) {
 
@@ -2829,7 +2906,7 @@
        ===================================================== */
 
     setInterval(
-      function() {
+      function () {
 
         if (
           huidigAccount !==
@@ -2862,7 +2939,6 @@
       .channel(
         "players-wijzigingen"
       )
-
       .on(
         "postgres_changes",
         {
@@ -2870,14 +2946,12 @@
           schema: "public",
           table: "players"
         },
-
-        function() {
+        function () {
 
           laadSpelers();
 
         }
       )
-
       .subscribe();
 
 
@@ -2889,7 +2963,6 @@
       .channel(
         "purchase-request-wijzigingen"
       )
-
       .on(
         "postgres_changes",
         {
@@ -2897,8 +2970,7 @@
           schema: "public",
           table: "purchase_requests"
         },
-
-        function() {
+        function () {
 
           if (
             huidigAccount ===
@@ -2911,7 +2983,6 @@
 
         }
       )
-
       .subscribe();
 
   </script>
