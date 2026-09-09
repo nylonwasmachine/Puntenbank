@@ -38,6 +38,10 @@
       Itemshop
     </button>
 
+    <button type="button" class="tab-knop" data-tab="storage">
+      Item Storage
+    </button>
+
     <button type="button" class="tab-knop" data-tab="accounts">
       Accounts
     </button>
@@ -183,6 +187,25 @@
       <h1>Itemshop</h1>
 
       <div id="item-lijst" class="item-lijst"></div>
+
+    </section>
+
+
+    <!-- ITEM STORAGE -->
+
+    <section id="storage" class="tab-inhoud verborgen">
+
+      <h1>🎒 Item Storage</h1>
+
+      <p id="storage-instructie">
+        Log in om je gekochte items te bekijken.
+      </p>
+
+      <div id="storage-lijst">
+
+        <p>Item Storage laden...</p>
+
+      </div>
 
     </section>
 
@@ -407,6 +430,19 @@
 
                 }
 
+
+                if (tabNaam === "storage") {
+
+                  if (
+                    typeof toonItemStorage === "function"
+                  ) {
+
+                    toonItemStorage();
+
+                  }
+
+                }
+
               }
             );
 
@@ -453,61 +489,67 @@
 
     /* =====================================================
        ITEMSHOP
+
+       Je kunt hier later makkelijk items aanpassen.
+
+       [0] = naam
+       [1] = beschrijving
+       [2] = prijs
        ===================================================== */
 
     const items = [
 
       [
-        "100 duizend man",
-        "Een Leger aan 100 duizend man.",
+        "Zilver",
+        "Een zilver blok.",
         "3M"
       ],
 
       [
-        "100 duizend tanks",
-        "TANKS VOOR OORLOG!",
+        "Goud",
+        "Goud.",
         "9M"
       ],
 
       [
-        "Defensies",
-        "Bunkers, Verdedigingen en meer.",
+        "diamant",
+        "een diamant.",
         "5M"
       ],
 
       [
-        "Oorlogs medaille",
-        "Een mooie zilveren medaille verdient door hard werk in de oorlogen.",
+        "medaille",
+        "Een mooie zilveren medaille.",
         "7.5M"
       ],
 
       [
         "Vliegtuigen",
-        "100 duizend vliegtuigen.",
+        "Een commercial vliegtuig.",
         "12M"
       ],
 
       [
-        "Burgemeester Rol",
-        "Nodig om burgemeester te worden van een land.",
+        "trap",
+        "trap.",
         "25M"
       ],
 
       [
-        "10 Duizend nucleaire bommen",
-        "nucleaire kaboom.",
+        "Lebron james",
+        "Lebron james.",
         "50M"
       ],
 
       [
-        "Ammunitie",
-        "Hervul alle soldaten met ammunitie.",
+        "paintball",
+        "Paintballs.",
         "10M"
       ],
 
       [
         "Diamanten badge",
-        "Nodig om oorlogsleider en of president te worden.",
+        "Nodig.",
         "100M"
       ]
 
@@ -855,6 +897,8 @@
         toonBeheerLeaderboard();
 
         toonAankoopVerzoeken();
+
+        toonItemStorage();
 
         controleerAankoopOptie();
 
@@ -1371,6 +1415,8 @@
 
           updatePuntenDisplay();
 
+          toonItemStorage();
+
         }
 
         toonBeheerLeaderboard();
@@ -1439,6 +1485,254 @@
 
         }
       );
+
+    }
+
+
+    /* =====================================================
+       ITEM STORAGE LADEN
+       ===================================================== */
+
+    async function toonItemStorage() {
+
+      const lijst =
+        document.getElementById(
+          "storage-lijst"
+        );
+
+      const instructie =
+        document.getElementById(
+          "storage-instructie"
+        );
+
+      if (!lijst) {
+        return;
+      }
+
+
+      if (huidigAccount === "") {
+
+        lijst.innerHTML =
+          "<p>Log eerst in om je Item Storage te bekijken.</p>";
+
+        if (instructie) {
+
+          instructie.textContent =
+            "Log in om je gekochte items te bekijken.";
+
+        }
+
+        return;
+
+      }
+
+
+      if (huidigAccount === overheidNaam) {
+
+        lijst.innerHTML =
+          "<p>De Overheid heeft geen persoonlijke Item Storage.</p>";
+
+        if (instructie) {
+
+          instructie.textContent =
+            "De Overheid heeft geen persoonlijke inventaris.";
+
+        }
+
+        return;
+
+      }
+
+
+      if (instructie) {
+
+        instructie.textContent =
+          "Hier zie je al je gekochte items en aantallen.";
+
+      }
+
+
+      lijst.innerHTML =
+        "<p>Items laden...</p>";
+
+
+      const {
+        data,
+        error
+      } =
+        await database
+          .from("player_items")
+          .select("item_naam, aantal")
+          .eq(
+            "speler_naam",
+            huidigAccount
+          )
+          .order(
+            "item_naam",
+            {
+              ascending: true
+            }
+          );
+
+
+      if (error) {
+
+        console.error(
+          "Item Storage laden:",
+          error
+        );
+
+        lijst.innerHTML =
+          "<p>De Item Storage kon niet worden geladen: " +
+          veiligeTekst(error.message) +
+          "</p>";
+
+        return;
+
+      }
+
+
+      if (!data || data.length === 0) {
+
+        lijst.innerHTML =
+          "<p>Je hebt nog geen items gekocht.</p>";
+
+        return;
+
+      }
+
+
+      lijst.innerHTML = "";
+
+
+      data.forEach(
+        function (item) {
+
+          const kaart =
+            document.createElement("article");
+
+          kaart.className =
+            "item-kaart";
+
+          kaart.innerHTML = `
+
+            <h2>
+              🎁 ${veiligeTekst(item.item_naam)}
+            </h2>
+
+            <p>
+              Aantal:
+              <strong>
+                ${Number(item.aantal)}
+              </strong>
+            </p>
+
+          `;
+
+          lijst.appendChild(
+            kaart
+          );
+
+        }
+      );
+
+    }
+
+
+    /* =====================================================
+       ITEM AAN STORAGE TOEVOEGEN
+       ===================================================== */
+
+    async function voegItemToeAanStorage(
+      spelerNaam,
+      itemNaam
+    ) {
+
+      if (!spelerNaam || !itemNaam) {
+        return false;
+      }
+
+
+      const {
+        data: bestaand,
+        error: laadFout
+      } =
+        await database
+          .from("player_items")
+          .select("aantal")
+          .eq(
+            "speler_naam",
+            spelerNaam
+          )
+          .eq(
+            "item_naam",
+            itemNaam
+          )
+          .maybeSingle();
+
+
+      if (laadFout) {
+
+        console.error(
+          "Bestaand storage-item laden:",
+          laadFout
+        );
+
+        return false;
+
+      }
+
+
+      let nieuwAantal = 1;
+
+
+      if (bestaand) {
+
+        nieuwAantal =
+          Number(bestaand.aantal) + 1;
+
+      }
+
+
+      const {
+        error
+      } =
+        await database
+          .from("player_items")
+          .upsert(
+            {
+              speler_naam:
+                spelerNaam,
+
+              item_naam:
+                itemNaam,
+
+              aantal:
+                nieuwAantal,
+
+              updated_at:
+                new Date().toISOString()
+            },
+            {
+              onConflict:
+                "speler_naam,item_naam"
+            }
+          );
+
+
+      if (error) {
+
+        console.error(
+          "Item toevoegen aan Storage:",
+          error
+        );
+
+        return false;
+
+      }
+
+
+      return true;
 
     }
 
@@ -2017,6 +2311,7 @@
 
       }
 
+
       let bevestigingTekst;
 
       if (actie === "accepted") {
@@ -2033,6 +2328,7 @@
 
       }
 
+
       const bevestiging =
         confirm(
           bevestigingTekst
@@ -2041,6 +2337,7 @@
       if (!bevestiging) {
         return;
       }
+
 
       const wachtwoord =
         prompt(
@@ -2063,6 +2360,40 @@
 
 
       try {
+
+        /* Eerst het aankoopverzoek ophalen */
+
+        const {
+          data: verzoek,
+          error: verzoekFout
+        } =
+          await database
+            .from("purchase_requests")
+            .select("*")
+            .eq(
+              "id",
+              verzoekId
+            )
+            .single();
+
+
+        if (verzoekFout || !verzoek) {
+
+          console.error(
+            "Aankoopverzoek ophalen:",
+            verzoekFout
+          );
+
+          alert(
+            "Het aankoopverzoek kon niet worden gevonden."
+          );
+
+          return;
+
+        }
+
+
+        /* Aankoop verwerken via Edge Function */
 
         const {
           data,
@@ -2119,10 +2450,36 @@
         }
 
 
+        /* Bij acceptatie item aan Storage toevoegen */
+
         if (actie === "accepted") {
 
+          const storageGelukt =
+            await voegItemToeAanStorage(
+              verzoek.speler_naam,
+              verzoek.item_naam
+            );
+
+
+          if (!storageGelukt) {
+
+            alert(
+              "De aankoop is geaccepteerd, " +
+              "maar het item kon niet aan Item Storage worden toegevoegd."
+            );
+
+            await toonAankoopVerzoeken();
+
+            await laadSpelers();
+
+            return;
+
+          }
+
+
           alert(
-            "Aankoop geaccepteerd! De punten zijn afgetrokken."
+            "Aankoop geaccepteerd! " +
+            "De punten zijn afgetrokken en het item staat in Item Storage."
           );
 
         }
@@ -2139,6 +2496,15 @@
         await toonAankoopVerzoeken();
 
         await laadSpelers();
+
+
+        if (
+          huidigAccount === verzoek.speler_naam
+        ) {
+
+          await toonItemStorage();
+
+        }
 
       }
 
@@ -2243,12 +2609,6 @@
         )
         .value = "";
 
-      /*
-       * Belangrijk:
-       * na het versturen opnieuw controleren.
-       * Als de ontvanger Overheid is,
-       * blijft het aankoopvak dus zichtbaar.
-       */
 
       controleerAankoopOptie();
 
@@ -2379,6 +2739,8 @@
 
       toonBeheerAankopen();
 
+      toonItemStorage();
+
       await laadSpelers();
 
     }
@@ -2454,6 +2816,35 @@
           ) {
 
             toonAankoopVerzoeken();
+
+          }
+
+        }
+      )
+      .subscribe();
+
+
+    /* =====================================================
+       REALTIME ITEM STORAGE
+       ===================================================== */
+
+    database
+      .channel("player-items-wijzigingen")
+      .on(
+        "postgres_changes",
+        {
+          event: "*",
+          schema: "public",
+          table: "player_items"
+        },
+        function () {
+
+          if (
+            huidigAccount !== "" &&
+            huidigAccount !== overheidNaam
+          ) {
+
+            toonItemStorage();
 
           }
 
